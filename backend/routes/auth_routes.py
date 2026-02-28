@@ -6,7 +6,7 @@ from sqlalchemy.orm import Session
 from config.database import get_db
 from backend.schemas.auth import (
     LoginRequest, TokenResponse, RefreshRequest,
-    ForgotPasswordRequest, ResetPasswordRequest, OTPVerifyRequest
+    ForgotPasswordRequest, OTPVerifyRequest
 )
 from backend.schemas.user import UserCreate, UserResponse, UserUpdate, PasswordChange
 from backend.services.auth_service import auth_service
@@ -59,14 +59,6 @@ def forgot_password(data: ForgotPasswordRequest, db: Session = Depends(get_db)):
     """Send password reset OTP."""
     auth_service.forgot_password(db, data.email)
     return success_response(message="Password reset OTP sent if email exists")
-
-
-@router.post("/reset-password", response_model=dict)
-def reset_password(data: ResetPasswordRequest, db: Session = Depends(get_db)):
-    """Reset password using OTP token."""
-    # data.token is used as the OTP; email is embedded in the token via OTP store
-    # For simplicity, require email in request too
-    return error_response("Please use /auth/reset-password-with-otp", 400)
 
 
 @router.post("/reset-password-with-otp", response_model=dict)

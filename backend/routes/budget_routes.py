@@ -1,6 +1,6 @@
 """Budget routes: allocate, expense, report."""
 
-from datetime import datetime
+from datetime import datetime, timezone
 from typing import Optional
 from fastapi import APIRouter, Depends, Query
 from sqlalchemy.orm import Session
@@ -22,7 +22,7 @@ def list_budgets(
     db: Session = Depends(get_db),
 ):
     """List all department budgets."""
-    year = fiscal_year or datetime.utcnow().year
+    year = fiscal_year or datetime.now(timezone.utc).year
     budgets = budget_service.get_all_budgets(db, fiscal_year=year)
     return success_response([
         {
@@ -56,7 +56,7 @@ def record_expense(
     db: Session = Depends(get_db),
 ):
     """Record an expense against department budget."""
-    year = datetime.utcnow().year
+    year = datetime.now(timezone.utc).year
     dept_id = current_user.department_id
     if not dept_id:
         from fastapi import HTTPException
