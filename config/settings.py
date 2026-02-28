@@ -17,7 +17,7 @@ class Settings(BaseSettings):
     SECRET_KEY: str = "changeme-super-secret-key"
 
     # Database
-    DATABASE_URL: str = "postgresql://civicresolve:civicresolve123@localhost:5432/civicresolve_db"
+    DATABASE_URL: str = "sqlite:///./civicresolve.db"
 
     # Redis
     REDIS_URL: str = "redis://localhost:6379/0"
