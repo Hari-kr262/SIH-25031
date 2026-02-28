@@ -5,7 +5,7 @@ Classifies civic issue images into categories.
 
 import os
 import numpy as np
-from typing import Dict, Optional, Tuple
+from typing import Optional, Tuple
 
 CATEGORIES = ["pothole", "garbage", "streetlight", "water_leak", "drainage",
               "road_damage", "illegal_dumping", "fallen_tree", "sewage",

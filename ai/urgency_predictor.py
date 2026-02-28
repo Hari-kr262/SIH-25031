@@ -3,7 +3,6 @@ Urgency predictor — estimates urgency score (0-1) for civic issues.
 Uses category, keywords, and historical patterns.
 """
 
-from typing import Optional
 
 
 URGENCY_WEIGHTS = {

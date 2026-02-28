@@ -10,7 +10,7 @@ class TestCitizenFlow:
     def setup(self, client):
         self.client = client
         # Register a fresh citizen for each test
-        resp = client.post("/api/v1/auth/register", json={
+        client.post("/api/v1/auth/register", json={
             "full_name": "Integration Citizen",
             "email": "intcitizen@test.com",
             "password": "pass123",

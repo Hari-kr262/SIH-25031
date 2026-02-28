@@ -3,6 +3,7 @@ CivicResolve FastAPI application factory.
 Registers all routers, middleware, and startup events.
 """
 
+from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.gzip import GZipMiddleware
@@ -10,7 +11,6 @@ from slowapi import _rate_limit_exceeded_handler
 from slowapi.errors import RateLimitExceeded
 import os
 
-from config.settings import settings
 from backend.middleware.cors_middleware import add_cors
 from backend.middleware.rate_limiter import limiter
 
@@ -32,6 +32,14 @@ from backend.routes.upload_routes import router as upload_router
 from backend.routes.chatbot_routes import router as chatbot_router
 
 
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    """Initialize resources on startup."""
+    from database.connection import init_db
+    init_db()
+    yield
+
+
 def create_app() -> FastAPI:
     """Create and configure the FastAPI application."""
 
@@ -44,6 +52,7 @@ def create_app() -> FastAPI:
         version="1.0.0",
         docs_url="/docs",
         redoc_url="/redoc",
+        lifespan=lifespan,
     )
 
     # Middleware
@@ -76,11 +85,5 @@ def create_app() -> FastAPI:
             "status": "running",
             "docs": "/docs",
         }
-
-    @app.on_event("startup")
-    async def startup():
-        """Initialize database tables on startup."""
-        from database.connection import init_db
-        init_db()
 
     return app

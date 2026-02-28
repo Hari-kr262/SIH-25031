@@ -1,7 +1,6 @@
 """Unit tests for authentication service."""
 
 import pytest
-from unittest.mock import MagicMock, patch
 from backend.utils.security import hash_password, verify_password, create_access_token, decode_token
 
 

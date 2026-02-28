@@ -3,7 +3,7 @@ Fake report detector — identifies potentially fraudulent issue reports.
 Uses text similarity, location anomalies, and user behavior patterns.
 """
 
-from typing import Dict, Any, Tuple
+from typing import Tuple
 
 
 class FakeDetector:

@@ -1,7 +1,6 @@
 """Unit tests for gamification service."""
 
-import pytest
-from config.constants import get_level_for_points, CITIZEN_LEVELS, Points
+from config.constants import get_level_for_points, Points
 
 
 def test_level_for_zero_points():

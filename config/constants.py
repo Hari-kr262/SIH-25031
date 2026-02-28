@@ -2,9 +2,6 @@
 Application-wide constants for gamification, SLA, colors, and configuration.
 """
 
-from enum import Enum
-
-
 # ---------------------------------------------------------------------------
 # Color Scheme
 # ---------------------------------------------------------------------------

@@ -1,6 +1,6 @@
 """Standardized API response helpers."""
 
-from typing import Any, Optional, Dict
+from typing import Any, Dict
 from fastapi.responses import JSONResponse
 
 

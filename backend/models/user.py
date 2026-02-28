@@ -3,8 +3,8 @@
 import enum
 from datetime import datetime
 from sqlalchemy import (
-    Column, Integer, String, Boolean, DateTime, Float,
-    ForeignKey, Enum as SAEnum, Text
+    Column, Integer, String, Boolean, DateTime,
+    ForeignKey, Enum as SAEnum
 )
 from sqlalchemy.orm import relationship
 from config.database import Base

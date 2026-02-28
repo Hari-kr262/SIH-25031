@@ -1,8 +1,7 @@
 """Export service — PDF and Excel report generation."""
 
 import io
-from typing import List, Dict, Any, Optional
-from datetime import datetime
+from typing import List, Dict, Any
 from backend.utils.time_utils import now_utc
 
 

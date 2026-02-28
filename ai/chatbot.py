@@ -3,7 +3,6 @@ AI-powered civic assistant using OpenAI API.
 Falls back to rule-based responses when API is unavailable.
 """
 
-from typing import Optional
 from config.settings import settings
 
 

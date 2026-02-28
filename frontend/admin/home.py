@@ -2,7 +2,6 @@
 import flet as ft
 from frontend.themes.colors import AppColors
 from frontend.components.stat_card import StatCard
-from frontend.components.loading_spinner import LoadingSpinner
 
 
 class AdminHome:

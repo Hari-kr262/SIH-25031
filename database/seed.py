@@ -13,7 +13,7 @@ import os
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from datetime import datetime, timezone
-from config.database import SessionLocal, engine
+from config.database import SessionLocal
 from config.constants import DEPARTMENTS, SLA_DEFAULTS, BADGE_DEFINITIONS
 from backend.models import (
     User, Department, SLAConfig, Badge, Budget,

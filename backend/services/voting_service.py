@@ -1,7 +1,7 @@
 """Voting service — upvote/downvote issues."""
 
 from sqlalchemy.orm import Session
-from fastapi import HTTPException, status
+from fastapi import HTTPException
 from backend.models.vote import Vote, VoteType
 from backend.models.issue import Issue
 from backend.services.gamification_service import gamification_service

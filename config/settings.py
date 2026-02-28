@@ -1,6 +1,7 @@
 """Application settings loaded from environment variables."""
 
 from pydantic_settings import BaseSettings
+from pydantic import ConfigDict
 from functools import lru_cache
 
 
@@ -61,9 +62,7 @@ class Settings(BaseSettings):
     ALLOWED_METHODS: list = ["*"]
     ALLOWED_HEADERS: list = ["*"]
 
-    class Config:
-        env_file = ".env"
-        case_sensitive = True
+    model_config = ConfigDict(env_file=".env", case_sensitive=True)
 
 
 @lru_cache()

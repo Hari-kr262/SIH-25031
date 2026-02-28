@@ -1,6 +1,5 @@
 """Unit tests for AI components."""
 
-import pytest
 from ai.urgency_predictor import UrgencyPredictor
 from ai.fake_detector import FakeDetector
 from ai.duplicate_detector import DuplicateDetector

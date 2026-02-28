@@ -8,7 +8,7 @@ from config.database import get_db
 from backend.models.user import User, UserRole
 from backend.models.department import Department
 from backend.models.announcement import Announcement
-from backend.middleware.rbac_middleware import require_admin, require_super_admin
+from backend.middleware.rbac_middleware import require_admin
 from backend.utils.response_utils import success_response, paginated_response
 
 router = APIRouter(prefix="/admin", tags=["Admin"])

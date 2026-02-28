@@ -3,8 +3,7 @@ Hotspot predictor — identifies geographic clusters of civic issues.
 Uses K-means clustering to find problem hotspots.
 """
 
-from typing import List, Dict, Optional
-import math
+from typing import List, Dict
 
 
 class HotspotPredictor:

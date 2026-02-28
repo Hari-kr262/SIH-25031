@@ -1,12 +1,11 @@
 """Analytics service — aggregated statistics and insights."""
 
-from datetime import datetime, timedelta
+from datetime import timedelta
 from typing import Dict, List, Any
 from sqlalchemy.orm import Session
 from sqlalchemy import func, desc
 
-from backend.models.issue import Issue, IssueStatus, IssueCategory
-from backend.models.user import User, UserRole
+from backend.models.issue import Issue, IssueStatus
 from backend.models.resolution import Resolution
 from backend.utils.time_utils import now_utc
 

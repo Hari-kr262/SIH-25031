@@ -11,7 +11,6 @@ def check_sla_deadlines():
     """
     from config.database import SessionLocal
     from backend.services.sla_service import sla_service
-    from backend.services.notification_service import notification_service
 
     db = SessionLocal()
     try:
@@ -20,7 +19,7 @@ def check_sla_deadlines():
 
         # Notify for at-risk issues
         at_risk = sla_service.get_at_risk_issues(db)
-        for issue_data in at_risk:
+        for _issue_data in at_risk:
             # TODO: Notify department head about at-risk issue
             pass
 

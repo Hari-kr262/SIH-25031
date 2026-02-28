@@ -5,7 +5,7 @@ Classifies issue descriptions into categories.
 
 import os
 import pickle
-from typing import Tuple, Optional
+from typing import Tuple
 
 MODEL_PATH = os.path.join(os.path.dirname(__file__), "models", "text_classifier.pkl")
 

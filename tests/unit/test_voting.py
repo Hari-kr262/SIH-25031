@@ -1,8 +1,6 @@
 """Unit tests for voting service."""
 
 import pytest
-from unittest.mock import MagicMock
-from backend.services.voting_service import VotingService
 from backend.models.vote import VoteType
 
 

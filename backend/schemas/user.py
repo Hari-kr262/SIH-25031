@@ -2,7 +2,7 @@
 
 from datetime import datetime
 from typing import Optional
-from pydantic import BaseModel, EmailStr, field_validator
+from pydantic import BaseModel, EmailStr, field_validator, ConfigDict
 from backend.models.user import UserRole
 
 
@@ -44,8 +44,7 @@ class UserResponse(UserBase):
     is_verified: bool = False
     created_at: datetime
 
-    class Config:
-        from_attributes = True
+    model_config = ConfigDict(from_attributes=True)
 
 
 class UserPublic(BaseModel):
@@ -57,8 +56,7 @@ class UserPublic(BaseModel):
     points: int
     level: int
 
-    class Config:
-        from_attributes = True
+    model_config = ConfigDict(from_attributes=True)
 
 
 class PasswordChange(BaseModel):

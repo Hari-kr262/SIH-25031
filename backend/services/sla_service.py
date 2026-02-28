@@ -4,7 +4,6 @@ from typing import List, Dict
 from sqlalchemy.orm import Session
 
 from backend.models.issue import Issue, IssueStatus
-from backend.models.sla_config import SLAConfig
 from backend.utils.time_utils import get_elapsed_percent, is_overdue, now_utc
 
 

@@ -1,7 +1,7 @@
 """Pydantic schemas for budget management."""
 
 from typing import Optional
-from pydantic import BaseModel
+from pydantic import BaseModel, ConfigDict
 
 
 class BudgetAllocate(BaseModel):
@@ -25,5 +25,4 @@ class BudgetResponse(BaseModel):
     remaining_amount: float
     utilization_percent: float
 
-    class Config:
-        from_attributes = True
+    model_config = ConfigDict(from_attributes=True)

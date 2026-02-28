@@ -1,10 +1,10 @@
 """Gamification service — points, levels, badges."""
 
-from typing import List, Optional
+from typing import List
 from sqlalchemy.orm import Session
 from backend.models.user import User
 from backend.models.badge import Badge, UserBadge
-from config.constants import CITIZEN_LEVELS, get_level_for_points
+from config.constants import CITIZEN_LEVELS
 
 
 class GamificationService:

@@ -7,7 +7,7 @@ from sqlalchemy.orm import Session
 
 from config.database import get_db
 from backend.models.user import User
-from backend.schemas.budget import BudgetAllocate, BudgetExpense, BudgetResponse
+from backend.schemas.budget import BudgetAllocate, BudgetExpense
 from backend.services.budget_service import budget_service
 from backend.middleware.rbac_middleware import require_admin, require_department_head
 from backend.utils.response_utils import success_response

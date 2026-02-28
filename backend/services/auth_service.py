@@ -1,12 +1,11 @@
 """Authentication service — register, login, token management."""
 
-import secrets
-from datetime import datetime, timedelta
-from typing import Optional, Dict, Any
+from datetime import timedelta
+from typing import Dict, Any
 from sqlalchemy.orm import Session
 from fastapi import HTTPException, status
 
-from backend.models.user import User, UserRole
+from backend.models.user import User
 from backend.schemas.auth import LoginRequest, TokenResponse
 from backend.schemas.user import UserCreate
 from backend.utils.security import (

@@ -1,6 +1,5 @@
 """Role-Based Access Control (RBAC) helpers as FastAPI dependencies."""
 
-from typing import List
 from fastapi import HTTPException, status, Depends
 from backend.models.user import User, UserRole
 from backend.middleware.auth_middleware import get_current_user

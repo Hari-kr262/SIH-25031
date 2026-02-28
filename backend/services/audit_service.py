@@ -3,7 +3,6 @@
 from typing import Optional
 from sqlalchemy.orm import Session
 from backend.models.audit_log import AuditLog
-import json
 
 
 def log_action(

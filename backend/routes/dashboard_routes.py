@@ -1,13 +1,11 @@
 """Dashboard routes: public stats, admin stats, department stats."""
 
-from typing import Optional
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 
 from config.database import get_db
 from backend.models.user import User, UserRole
 from backend.services.analytics_service import analytics_service
-from backend.middleware.auth_middleware import get_current_user
 from backend.middleware.rbac_middleware import require_admin, require_department_head
 from backend.utils.response_utils import success_response
 
@@ -55,14 +53,11 @@ def department_dashboard(
     db: Session = Depends(get_db),
 ):
     """Department-specific stats for department heads."""
-    from backend.models.issue import Issue
-    from sqlalchemy import func
+    from backend.models.issue import Issue, IssueStatus
 
     dept_id = current_user.department_id
     if not dept_id:
         return success_response({})
-
-    from backend.models.issue import IssueStatus
     total = db.query(Issue).filter_by(department_id=dept_id).count()
     resolved = db.query(Issue).filter_by(department_id=dept_id, status=IssueStatus.resolved).count()
     pending = db.query(Issue).filter_by(department_id=dept_id, status=IssueStatus.pending).count()

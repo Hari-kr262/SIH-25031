@@ -1,10 +1,10 @@
 """Issue service — CRUD operations for civic issues."""
 
-from datetime import datetime, timedelta
+from datetime import timedelta
 from typing import List, Optional, Tuple
 from sqlalchemy.orm import Session
-from sqlalchemy import or_, desc, func
-from fastapi import HTTPException, status
+from sqlalchemy import or_, desc
+from fastapi import HTTPException
 
 from backend.models.issue import Issue, IssueStatus, IssueCategory, IssuePriority
 from backend.models.sla_config import SLAConfig

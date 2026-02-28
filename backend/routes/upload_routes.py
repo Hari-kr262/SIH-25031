@@ -1,9 +1,6 @@
 """Upload routes: image, video, document uploads."""
 
 from fastapi import APIRouter, Depends, UploadFile, File, HTTPException
-from sqlalchemy.orm import Session
-
-from config.database import get_db
 from backend.models.user import User
 from backend.middleware.auth_middleware import get_current_user
 from backend.utils.file_utils import get_file_size_mb, save_file_locally

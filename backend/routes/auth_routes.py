@@ -1,6 +1,6 @@
 """Authentication routes: register, login, OTP, refresh, forgot/reset password, profile."""
 
-from fastapi import APIRouter, Depends, Request, HTTPException, status
+from fastapi import APIRouter, Depends, Request, HTTPException
 from sqlalchemy.orm import Session
 
 from config.database import get_db
