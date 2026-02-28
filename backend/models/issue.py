@@ -4,7 +4,7 @@ import enum
 from datetime import datetime
 from sqlalchemy import (
     Column, Integer, String, Boolean, DateTime, Float,
-    ForeignKey, Enum as SAEnum, Text, UniqueConstraint
+    ForeignKey, Enum as SAEnum, Text
 )
 from sqlalchemy.orm import relationship
 from config.database import Base
