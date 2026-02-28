@@ -28,7 +28,7 @@ class FakeDetector:
         # Check for suspiciously short description
         combined = (title + " " + (description or "")).strip()
         if len(combined) < 10:
-            fake_score += 0.3
+            fake_score += 0.6
             reasons.append("Very short description")
 
         # Check for all-caps spam indicators
@@ -43,9 +43,9 @@ class FakeDetector:
             reasons.append("Repeated characters detected")
 
         # Check invalid coordinates for Jharkhand (approx bounds)
-        if latitude and longitude:
+        if latitude is not None and longitude is not None:
             if not (22.0 <= latitude <= 25.5 and 83.0 <= longitude <= 87.5):
-                fake_score += 0.3
+                fake_score += 0.6
                 reasons.append("Coordinates outside Jharkhand")
 
         is_fake = fake_score >= 0.5

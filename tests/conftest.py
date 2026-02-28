@@ -1,5 +1,9 @@
 """Pytest configuration and shared fixtures."""
 
+import os
+# Override DATABASE_URL before any app imports so SQLAlchemy uses SQLite
+os.environ["DATABASE_URL"] = "sqlite:///./test.db"
+
 import pytest
 from fastapi.testclient import TestClient
 from sqlalchemy import create_engine

@@ -20,7 +20,7 @@ def list_users(
     page_size: int = Query(20, ge=1, le=100),
     role: Optional[str] = None,
     search: Optional[str] = None,
-    current_user: User = Depends(require_admin()),
+    current_user: User = Depends(require_admin),
     db: Session = Depends(get_db),
 ):
     """List all users with optional filters."""
@@ -46,7 +46,7 @@ def list_users(
 @router.put("/users/{user_id}/toggle-active", response_model=dict)
 def toggle_user_active(
     user_id: int,
-    current_user: User = Depends(require_admin()),
+    current_user: User = Depends(require_admin),
     db: Session = Depends(get_db),
 ):
     """Activate or deactivate a user."""
@@ -60,7 +60,7 @@ def toggle_user_active(
 
 @router.get("/departments", response_model=dict)
 def list_departments(
-    current_user: User = Depends(require_admin()),
+    current_user: User = Depends(require_admin),
     db: Session = Depends(get_db),
 ):
     """List all departments."""
@@ -76,7 +76,7 @@ def list_departments(
 def create_department(
     name: str,
     description: str = "",
-    current_user: User = Depends(require_admin()),
+    current_user: User = Depends(require_admin),
     db: Session = Depends(get_db),
 ):
     """Create a new department."""
@@ -92,7 +92,7 @@ def create_announcement(
     title: str,
     content: str,
     target_role: Optional[str] = None,
-    current_user: User = Depends(require_admin()),
+    current_user: User = Depends(require_admin),
     db: Session = Depends(get_db),
 ):
     """Create a system announcement."""
@@ -126,7 +126,7 @@ def list_announcements(db: Session = Depends(get_db)):
 def audit_logs(
     page: int = Query(1, ge=1),
     page_size: int = Query(50, ge=1, le=100),
-    current_user: User = Depends(require_admin()),
+    current_user: User = Depends(require_admin),
     db: Session = Depends(get_db),
 ):
     """Get paginated audit logs."""

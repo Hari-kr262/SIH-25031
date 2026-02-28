@@ -40,7 +40,7 @@ def heatmap_data(db: Session = Depends(get_db)):
 
 @router.get("/performance", response_model=dict)
 def department_performance(
-    current_user: User = Depends(require_admin()),
+    current_user: User = Depends(require_admin),
     db: Session = Depends(get_db),
 ):
     """Department-wise resolution performance."""
@@ -50,7 +50,7 @@ def department_performance(
 
 @router.get("/sla", response_model=dict)
 def sla_analytics(
-    current_user: User = Depends(require_admin()),
+    current_user: User = Depends(require_admin),
     db: Session = Depends(get_db),
 ):
     """SLA compliance analytics."""
@@ -67,7 +67,7 @@ def sla_analytics(
 
 @router.get("/export/pdf", response_class=Response)
 def export_pdf(
-    current_user: User = Depends(require_admin()),
+    current_user: User = Depends(require_admin),
     db: Session = Depends(get_db),
 ):
     """Export analytics as PDF."""
@@ -79,7 +79,7 @@ def export_pdf(
 
 @router.get("/export/excel", response_class=Response)
 def export_excel(
-    current_user: User = Depends(require_admin()),
+    current_user: User = Depends(require_admin),
     db: Session = Depends(get_db),
 ):
     """Export issues as Excel."""

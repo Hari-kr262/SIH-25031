@@ -22,7 +22,7 @@ _feature_flags = {
 
 @router.get("/health", response_model=dict)
 def system_health(
-    current_user: User = Depends(require_super_admin()),
+    current_user: User = Depends(require_super_admin),
     db: Session = Depends(get_db),
 ):
     """Check system health."""
@@ -40,7 +40,7 @@ def system_health(
 
 
 @router.get("/feature-flags", response_model=dict)
-def get_feature_flags(current_user: User = Depends(require_super_admin())):
+def get_feature_flags(current_user: User = Depends(require_super_admin)):
     """Get all feature flags."""
     return success_response(_feature_flags)
 
@@ -49,7 +49,7 @@ def get_feature_flags(current_user: User = Depends(require_super_admin())):
 def toggle_feature_flag(
     flag_name: str,
     enabled: bool,
-    current_user: User = Depends(require_super_admin()),
+    current_user: User = Depends(require_super_admin),
 ):
     """Toggle a feature flag."""
     if flag_name not in _feature_flags:
@@ -63,7 +63,7 @@ def toggle_feature_flag(
 def full_audit_logs(
     page: int = 1,
     page_size: int = 100,
-    current_user: User = Depends(require_super_admin()),
+    current_user: User = Depends(require_super_admin),
     db: Session = Depends(get_db),
 ):
     """Get complete audit logs (super admin only)."""
@@ -79,7 +79,7 @@ def full_audit_logs(
 @router.delete("/database/clear-test-data", response_model=dict)
 def clear_test_data(
     confirm: str,
-    current_user: User = Depends(require_super_admin()),
+    current_user: User = Depends(require_super_admin),
     db: Session = Depends(get_db),
 ):
     """Clear non-production test data (requires confirm='YES_DELETE_ALL')."""

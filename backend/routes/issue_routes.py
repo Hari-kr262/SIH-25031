@@ -103,7 +103,7 @@ def update_issue(
 @router.delete("/{issue_id}", response_model=dict)
 def delete_issue(
     issue_id: int,
-    current_user: User = Depends(require_admin()),
+    current_user: User = Depends(require_admin),
     db: Session = Depends(get_db),
 ):
     """Delete an issue (admin only)."""
@@ -117,7 +117,7 @@ def delete_issue(
 def assign_issue(
     issue_id: int,
     data: IssueAssign,
-    current_user: User = Depends(require_department_head()),
+    current_user: User = Depends(require_department_head),
     db: Session = Depends(get_db),
 ):
     """Assign an issue to a worker."""

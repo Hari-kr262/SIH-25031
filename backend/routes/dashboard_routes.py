@@ -26,7 +26,7 @@ def public_dashboard(db: Session = Depends(get_db)):
 
 @router.get("/admin", response_model=dict)
 def admin_dashboard(
-    current_user: User = Depends(require_admin()),
+    current_user: User = Depends(require_admin),
     db: Session = Depends(get_db),
 ):
     """Admin-level stats including user counts and SLA metrics."""
@@ -51,7 +51,7 @@ def admin_dashboard(
 
 @router.get("/department", response_model=dict)
 def department_dashboard(
-    current_user: User = Depends(require_department_head()),
+    current_user: User = Depends(require_department_head),
     db: Session = Depends(get_db),
 ):
     """Department-specific stats for department heads."""

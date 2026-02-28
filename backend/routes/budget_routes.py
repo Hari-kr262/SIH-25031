@@ -18,7 +18,7 @@ router = APIRouter(prefix="/budgets", tags=["Budgets"])
 @router.get("/", response_model=dict)
 def list_budgets(
     fiscal_year: Optional[int] = Query(None),
-    current_user: User = Depends(require_admin()),
+    current_user: User = Depends(require_admin),
     db: Session = Depends(get_db),
 ):
     """List all department budgets."""
@@ -41,7 +41,7 @@ def list_budgets(
 @router.post("/allocate", response_model=dict, status_code=201)
 def allocate_budget(
     data: BudgetAllocate,
-    current_user: User = Depends(require_admin()),
+    current_user: User = Depends(require_admin),
     db: Session = Depends(get_db),
 ):
     """Allocate budget to a department."""
@@ -52,7 +52,7 @@ def allocate_budget(
 @router.post("/expense", response_model=dict)
 def record_expense(
     data: BudgetExpense,
-    current_user: User = Depends(require_department_head()),
+    current_user: User = Depends(require_department_head),
     db: Session = Depends(get_db),
 ):
     """Record an expense against department budget."""

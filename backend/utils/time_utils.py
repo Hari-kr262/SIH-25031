@@ -32,7 +32,9 @@ def calculate_deadline(created_at: datetime, deadline_hours: int) -> datetime:
 def get_elapsed_percent(created_at: datetime, deadline: datetime) -> float:
     """Return percentage of SLA time elapsed (0-100+)."""
     total_seconds = (deadline - created_at).total_seconds()
-    elapsed_seconds = (datetime.now(timezone.utc) - created_at).total_seconds()
+    # Strip timezone info for comparison with naive datetimes from the DB
+    now = datetime.utcnow()
+    elapsed_seconds = (now - created_at.replace(tzinfo=None)).total_seconds()
     if total_seconds <= 0:
         return 100.0
     return round((elapsed_seconds / total_seconds) * 100, 2)
@@ -40,7 +42,7 @@ def get_elapsed_percent(created_at: datetime, deadline: datetime) -> float:
 
 def is_overdue(deadline: datetime) -> bool:
     """Check if a deadline has passed."""
-    return datetime.now(timezone.utc) > deadline
+    return datetime.utcnow() > deadline.replace(tzinfo=None)
 
 
 def format_duration(hours: float) -> str:
