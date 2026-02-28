@@ -42,6 +42,16 @@ def upload_to_cloudinary(file_path: str, folder: str = "civicresolve") -> Option
         return None
 
 
+def save_file_locally_from_bytes(file_bytes: bytes, filename: str, directory: str = "uploads") -> str:
+    """Save raw bytes locally and return the path."""
+    os.makedirs(directory, exist_ok=True)
+    unique_name = generate_unique_filename(filename)
+    filepath = os.path.join(directory, unique_name)
+    with open(filepath, "wb") as f:
+        f.write(file_bytes)
+    return filepath
+
+
 def save_file_locally(file: UploadFile, directory: str = "uploads") -> str:
     """Save an uploaded file locally and return the path."""
     os.makedirs(directory, exist_ok=True)

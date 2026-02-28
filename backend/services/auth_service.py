@@ -1,11 +1,11 @@
 """Authentication service — register, login, token management."""
 
 from datetime import timedelta
-from typing import Dict, Any
 from sqlalchemy.orm import Session
 from fastapi import HTTPException, status
 
 from backend.models.user import User
+from backend.models.otp import OTPRecord
 from backend.schemas.auth import LoginRequest, TokenResponse
 from backend.schemas.user import UserCreate
 from backend.utils.security import (
@@ -14,10 +14,6 @@ from backend.utils.security import (
 )
 from backend.utils.time_utils import now_utc
 from backend.services.audit_service import log_action
-
-
-# In-memory OTP store (use Redis in production)
-_otp_store: Dict[str, Dict[str, Any]] = {}
 
 
 class AuthService:
@@ -100,31 +96,45 @@ class AuthService:
             full_name=user.full_name,
         )
 
-    def send_otp(self, db: Session, email: str) -> bool:
+    def send_otp(self, db: Session, email: str, purpose: str = "verification") -> bool:
         """Generate and store OTP for email verification."""
         user = db.query(User).filter(User.email == email).first()
         if not user:
             return False  # Don't leak whether email exists
         otp = generate_otp()
-        _otp_store[email] = {
-            "otp": otp,
-            "expires_at": now_utc() + timedelta(minutes=10),
-        }
+        record = OTPRecord(
+            email=email,
+            otp_code=otp,
+            purpose=purpose,
+            is_used=False,
+            expires_at=now_utc() + timedelta(minutes=10),
+        )
+        db.add(record)
+        db.commit()
         # TODO: Send OTP via email using notification_service
         print(f"[DEV] OTP for {email}: {otp}")
         return True
 
     def verify_otp(self, db: Session, email: str, otp: str) -> bool:
         """Verify OTP and mark user as verified."""
-        stored = _otp_store.get(email)
-        if not stored:
+        record = (
+            db.query(OTPRecord)
+            .filter(
+                OTPRecord.email == email,
+                OTPRecord.otp_code == otp,
+                OTPRecord.is_used.is_(False),
+            )
+            .order_by(OTPRecord.created_at.desc())
+            .first()
+        )
+        if not record:
             return False
-        if now_utc() > stored["expires_at"]:
-            del _otp_store[email]
+        if now_utc() > record.expires_at:
+            record.is_used = True
+            db.commit()
             return False
-        if stored["otp"] != otp:
-            return False
-        del _otp_store[email]
+        record.is_used = True
+        db.commit()
         user = db.query(User).filter(User.email == email).first()
         if user:
             user.is_verified = True
@@ -133,7 +143,7 @@ class AuthService:
 
     def forgot_password(self, db: Session, email: str) -> bool:
         """Send a password reset OTP."""
-        return self.send_otp(db, email)
+        return self.send_otp(db, email, purpose="password_reset")
 
     def reset_password(self, db: Session, email: str, otp: str, new_password: str) -> bool:
         """Reset password after OTP verification."""
