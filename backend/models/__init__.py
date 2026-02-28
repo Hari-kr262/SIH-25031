@@ -13,6 +13,7 @@ from backend.models.sla_config import SLAConfig
 from backend.models.budget import Budget
 from backend.models.audit_log import AuditLog
 from backend.models.announcement import Announcement
+from backend.models.otp import OTPRecord
 
 __all__ = [
     "User", "UserRole",
@@ -28,4 +29,5 @@ __all__ = [
     "Budget",
     "AuditLog",
     "Announcement",
+    "OTPRecord",
 ]
