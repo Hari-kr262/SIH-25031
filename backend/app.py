@@ -86,4 +86,9 @@ def create_app() -> FastAPI:
             "docs": "/docs",
         }
 
+    @app.get("/health", tags=["Health"])
+    def health():
+        """Health check endpoint."""
+        return {"status": "ok", "message": "CivicResolve API is running"}
+
     return app
