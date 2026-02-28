@@ -39,6 +39,10 @@ reports/
 # Coverage
 .coverage
 htmlcov/
+test.db
+test.db-*
+*.pyc
+__pycache__/
 .pytest_cache/
 
 # OS
