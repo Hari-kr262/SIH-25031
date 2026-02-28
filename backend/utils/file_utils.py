@@ -1,9 +1,12 @@
 """File upload and storage utilities."""
 
+import logging
 import os
 import uuid
 from typing import Optional
 from fastapi import UploadFile
+
+logger = logging.getLogger(__name__)
 
 
 def generate_unique_filename(original_filename: str) -> str:
@@ -35,7 +38,7 @@ def upload_to_cloudinary(file_path: str, folder: str = "civicresolve") -> Option
         result = cloudinary.uploader.upload(file_path, folder=folder)
         return result.get("secure_url")
     except Exception as e:
-        print(f"Cloudinary upload failed: {e}")
+        logger.error("Cloudinary upload failed: %s", e)
         return None
 
 

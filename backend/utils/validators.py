@@ -6,8 +6,9 @@ from typing import Optional
 
 def validate_phone(phone: str) -> bool:
     """Validate Indian phone number format."""
-    pattern = r"^(\+91[-\s]?)?[6-9]\d{9}$"
-    return bool(re.match(pattern, phone.replace(" ", "").replace("-", "")))
+    cleaned = phone.replace(" ", "").replace("-", "")
+    pattern = r"^(\+91)?[6-9]\d{9}$"
+    return bool(re.match(pattern, cleaned))
 
 
 def validate_coordinates(lat: Optional[float], lng: Optional[float]) -> bool:
