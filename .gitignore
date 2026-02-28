@@ -1,0 +1,50 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+dist/
+*.egg-info/
+.eggs/
+venv/
+env/
+.env
+*.log
+
+# Database
+*.db
+*.sqlite3
+
+# IDE
+.vscode/
+.idea/
+*.swp
+
+# Docker
+.docker/
+
+# AI Models
+ai/models/*.h5
+ai/models/*.pkl
+ai/models/*.joblib
+
+# Uploads
+uploads/
+
+# Reports
+reports/
+
+# Coverage
+.coverage
+htmlcov/
+test.db
+test.db-*
+*.pyc
+__pycache__/
+.pytest_cache/
+
+# OS
+.DS_Store
+Thumbs.db
