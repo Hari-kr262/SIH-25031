@@ -9,13 +9,13 @@ def cleanup_old_notifications(days_old: int = 90):
     Delete read notifications older than N days.
     Runs at 2 AM daily.
     """
-    from datetime import datetime, timedelta
+    from datetime import datetime, timedelta, timezone
     from config.database import SessionLocal
     from backend.models.notification import Notification
 
     db = SessionLocal()
     try:
-        cutoff = datetime.utcnow() - timedelta(days=days_old)
+        cutoff = datetime.now(timezone.utc) - timedelta(days=days_old)
         deleted = db.query(Notification).filter(
             Notification.is_read == True,
             Notification.timestamp < cutoff,
