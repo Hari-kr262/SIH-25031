@@ -8,6 +8,7 @@ from sqlalchemy import func, desc
 from backend.models.issue import Issue, IssueStatus, IssueCategory
 from backend.models.user import User, UserRole
 from backend.models.resolution import Resolution
+from backend.utils.time_utils import now_utc
 
 
 class AnalyticsService:
@@ -69,7 +70,7 @@ class AnalyticsService:
 
     def get_trend_data(self, db: Session, days: int = 30) -> List[Dict]:
         """Return daily issue counts for the last N days."""
-        start_date = datetime.utcnow() - timedelta(days=days)
+        start_date = now_utc() - timedelta(days=days)
         rows = (
             db.query(
                 func.date(Issue.created_at).label("date"),

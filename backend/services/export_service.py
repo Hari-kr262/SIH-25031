@@ -3,6 +3,7 @@
 import io
 from typing import List, Dict, Any, Optional
 from datetime import datetime
+from backend.utils.time_utils import now_utc
 
 
 class ExportService:
@@ -23,7 +24,7 @@ class ExportService:
 
             # Title
             elements.append(Paragraph(title, styles["Title"]))
-            elements.append(Paragraph(f"Generated: {datetime.utcnow().strftime('%Y-%m-%d %H:%M UTC')}", styles["Normal"]))
+            elements.append(Paragraph(f"Generated: {now_utc().strftime('%Y-%m-%d %H:%M UTC')}", styles["Normal"]))
             elements.append(Spacer(1, 20))
 
             # Stats table

@@ -13,6 +13,7 @@ from backend.utils.security import (
     hash_password, verify_password,
     create_access_token, create_refresh_token, decode_token, generate_otp
 )
+from backend.utils.time_utils import now_utc
 from backend.services.audit_service import log_action
 
 
@@ -61,7 +62,7 @@ class AuthService:
             )
 
         # Update last login
-        user.last_login_at = datetime.utcnow()
+        user.last_login_at = now_utc()
         db.commit()
 
         token_data = {"sub": str(user.id), "role": user.role.value, "email": user.email}
@@ -108,7 +109,7 @@ class AuthService:
         otp = generate_otp()
         _otp_store[email] = {
             "otp": otp,
-            "expires_at": datetime.utcnow() + timedelta(minutes=10),
+            "expires_at": now_utc() + timedelta(minutes=10),
         }
         # TODO: Send OTP via email using notification_service
         print(f"[DEV] OTP for {email}: {otp}")
@@ -119,7 +120,7 @@ class AuthService:
         stored = _otp_store.get(email)
         if not stored:
             return False
-        if datetime.utcnow() > stored["expires_at"]:
+        if now_utc() > stored["expires_at"]:
             del _otp_store[email]
             return False
         if stored["otp"] != otp:

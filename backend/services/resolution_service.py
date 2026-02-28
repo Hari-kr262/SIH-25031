@@ -10,6 +10,7 @@ from backend.schemas.resolution import ResolutionCreate, ResolutionVerify
 from backend.services.gamification_service import gamification_service
 from backend.services.notification_service import notification_service
 from backend.services.audit_service import log_action
+from backend.utils.time_utils import now_utc
 from config.constants import Points
 
 
@@ -78,7 +79,7 @@ class ResolutionService:
         resolution.citizen_verified = verify_data.citizen_verified
         resolution.citizen_rating = verify_data.citizen_rating
         resolution.citizen_feedback = verify_data.citizen_feedback
-        resolution.verified_at = datetime.utcnow()
+        resolution.verified_at = now_utc()
 
         issue.status = IssueStatus.resolved if verify_data.citizen_verified else IssueStatus.in_progress
         db.commit()

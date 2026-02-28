@@ -10,6 +10,7 @@ from backend.models.issue import Issue, IssueStatus, IssueCategory, IssuePriorit
 from backend.models.sla_config import SLAConfig
 from backend.schemas.issue import IssueCreate, IssueUpdate
 from backend.services.audit_service import log_action
+from backend.utils.time_utils import now_utc
 from config.constants import CATEGORY_TO_DEPARTMENT
 
 
@@ -31,7 +32,7 @@ class IssueService:
         sla = db.query(SLAConfig).filter_by(category=issue_data.category).first()
         deadline = None
         if sla:
-            deadline = datetime.utcnow() + timedelta(hours=sla.deadline_hours)
+            deadline = now_utc() + timedelta(hours=sla.deadline_hours)
 
         issue = Issue(
             title=issue_data.title,
@@ -113,7 +114,7 @@ class IssueService:
         issue = self.get_issue(db, issue_id)
         for field, value in update_data.model_dump(exclude_unset=True).items():
             setattr(issue, field, value)
-        issue.updated_at = datetime.utcnow()
+        issue.updated_at = now_utc()
         db.commit()
         db.refresh(issue)
         log_action(db, user_id, "issue.update", "issue", issue.id)
@@ -124,7 +125,7 @@ class IssueService:
         issue = self.get_issue(db, issue_id)
         old_status = issue.status
         issue.status = new_status
-        issue.updated_at = datetime.utcnow()
+        issue.updated_at = now_utc()
 
         if comment:
             from backend.models.comment import Comment
@@ -144,7 +145,7 @@ class IssueService:
         if department_id:
             issue.department_id = department_id
         issue.status = IssueStatus.assigned
-        issue.updated_at = datetime.utcnow()
+        issue.updated_at = now_utc()
         db.commit()
         db.refresh(issue)
         log_action(db, user_id, "issue.assign", "issue", issue_id,

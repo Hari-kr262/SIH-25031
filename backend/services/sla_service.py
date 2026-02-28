@@ -1,12 +1,11 @@
 """SLA monitoring service."""
 
-from datetime import datetime
 from typing import List, Dict
 from sqlalchemy.orm import Session
 
 from backend.models.issue import Issue, IssueStatus
 from backend.models.sla_config import SLAConfig
-from backend.utils.time_utils import get_elapsed_percent, is_overdue
+from backend.utils.time_utils import get_elapsed_percent, is_overdue, now_utc
 
 
 class SLAService:
@@ -40,7 +39,7 @@ class SLAService:
                            IssueStatus.assigned, IssueStatus.in_progress]
         return db.query(Issue).filter(
             Issue.status.in_(active_statuses),
-            Issue.deadline < datetime.utcnow(),
+            Issue.deadline < now_utc(),
         ).all()
 
     def escalate_overdue(self, db: Session) -> int:
