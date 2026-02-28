@@ -1,16 +1,23 @@
 # 🏛️ CivicResolve — SIH 25031
 
 ![Python](https://img.shields.io/badge/Python-3.11-blue?logo=python)
-![FastAPI](https://img.shields.io/badge/FastAPI-0.104-green?logo=fastapi)
+![FastAPI](https://img.shields.io/badge/FastAPI-0.109-green?logo=fastapi)
 ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-15-blue?logo=postgresql)
 ![Flet](https://img.shields.io/badge/Flet-0.21-purple)
 ![Docker](https://img.shields.io/badge/Docker-Ready-blue?logo=docker)
 ![License](https://img.shields.io/badge/License-MIT-yellow)
+![Tests](https://img.shields.io/badge/Tests-46%20passing-brightgreen)
 
 **Smart India Hackathon 2025 | Problem Statement SIH25031**
 **Government of Jharkhand | Clean & Green Technology Theme**
 
 > A complete crowdsourced civic issue reporting and resolution system where citizens report potholes, garbage, broken streetlights, and water leaks — and the government resolves them with full accountability.
+
+---
+
+## 👋 New Here? Start with the Quick Start Guide
+
+> **[📖 QUICKSTART.md](QUICKSTART.md)** — Get the API running in 5 minutes, no database server needed.
 
 ---
 
@@ -62,55 +69,46 @@
 
 ## 🚀 Quick Start
 
-### Prerequisites
-- Python 3.11+
-- PostgreSQL 15+
-- Redis 7+
-- Docker (optional)
-
-### Local Setup
+### Option 1 — Local Dev (No database server required, fastest)
 
 ```bash
-# 1. Clone repository
+# 1. Clone and enter the repo
 git clone https://github.com/Hari-kr262/SIH-25031.git
 cd SIH-25031
 
-# 2. Create virtual environment
+# 2. Create and activate a virtual environment
 python -m venv venv
-source venv/bin/activate  # Linux/Mac
-# venv\Scripts\activate   # Windows
+source venv/bin/activate      # Mac/Linux
+# venv\Scripts\activate       # Windows
 
-# 3. Install dependencies
+# 3. Install all dependencies
 pip install -r requirements.txt
 
-# 4. Configure environment
+# 4. Create your .env file and switch to SQLite
 cp .env.example .env
-# Edit .env with your settings
+# Open .env and change DATABASE_URL to:
+#   DATABASE_URL=sqlite:///./civicresolve.db
 
-# 5. Run database migrations
-alembic upgrade head
-
-# 6. Seed initial data
+# 5. Create the database and add sample data
 python database/seed.py
 
-# 7. Start the API server
-uvicorn main:app --reload
-
-# 8. Start the frontend (new terminal)
-python frontend/app.py
+# 6. Start the API server
+python main.py
 ```
 
-### Docker Setup (Recommended)
+API is now running at **http://localhost:8000**
+Interactive docs: **http://localhost:8000/docs**
+
+📖 **See [QUICKSTART.md](QUICKSTART.md) for a full step-by-step walkthrough with screenshots, test accounts, and troubleshooting tips.**
+
+### Option 2 — Docker (Includes PostgreSQL + Redis, production-like)
 
 ```bash
-# Start all services
+# Start all services (app + database + redis + celery)
 docker-compose up -d
 
-# Seed database
+# Add sample data
 docker-compose exec app python database/seed.py
-
-# View logs
-docker-compose logs -f app
 ```
 
 **Default Admin Credentials:**

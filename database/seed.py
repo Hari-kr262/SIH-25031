@@ -12,7 +12,12 @@ import os
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
+# Load .env before importing settings so DATABASE_URL env var is honoured
+from dotenv import load_dotenv
+load_dotenv()
+
 from datetime import datetime, timezone
+from database.connection import init_db
 from config.database import SessionLocal
 from config.constants import DEPARTMENTS, SLA_DEFAULTS, BADGE_DEFINITIONS
 from backend.models import (
@@ -275,6 +280,8 @@ def seed_announcements(db, admin_user):
 def run_seed():
     """Run all seed functions."""
     print("\n🌱 Starting database seed...\n")
+    # Ensure all tables exist before seeding
+    init_db()
     db = SessionLocal()
     try:
         departments = seed_departments(db)
