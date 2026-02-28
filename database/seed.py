@@ -12,7 +12,7 @@ import os
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from datetime import datetime
+from datetime import datetime, timezone
 from config.database import SessionLocal, engine
 from config.constants import DEPARTMENTS, SLA_DEFAULTS, BADGE_DEFINITIONS
 from backend.models import (
@@ -220,7 +220,7 @@ def seed_badges(db):
 def seed_budgets(db, departments):
     """Create initial budget allocations for each department."""
     created = 0
-    current_year = datetime.utcnow().year
+    current_year = datetime.now(timezone.utc).year
     for dept in departments:
         existing = db.query(Budget).filter_by(
             department_id=dept.id, fiscal_year=current_year
