@@ -14,7 +14,7 @@ def NotificationBell(unread_count: int = 0, on_click=None) -> ft.Stack:
                 content=ft.Text(
                     str(min(unread_count, 99)),
                     size=9,
-                    color=ft.Colors.WHITE,
+                    color=ft.colors.WHITE,
                     weight=ft.FontWeight.BOLD,
                 ),
                 bgcolor=AppColors.ERROR,

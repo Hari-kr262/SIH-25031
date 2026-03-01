@@ -24,7 +24,7 @@ class AdminDepartmentsPage:
                     title=ft.Text("Departments", color=AppColors.ON_PRIMARY),
                     bgcolor=AppColors.PRIMARY,
                     leading=ft.IconButton(
-                        ft.Icons.ARROW_BACK,
+                        ft.icons.ARROW_BACK,
                         on_click=lambda e: self.page.go("/admin/dashboard"),
                         icon_color=AppColors.ON_PRIMARY,
                     ),
@@ -106,7 +106,7 @@ class AdminDepartmentsPage:
             content=ft.Container(
                 content=ft.Row(
                     controls=[
-                        ft.Icon(ft.Icons.BUSINESS, color=AppColors.PRIMARY, size=28),
+                        ft.Icon(ft.icons.BUSINESS, color=AppColors.PRIMARY, size=28),
                         ft.Column(
                             controls=[
                                 ft.Text(dept.get("name", ""), size=14,

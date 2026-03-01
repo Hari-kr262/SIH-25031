@@ -5,10 +5,10 @@ from frontend.components.stat_card import StatCard
 
 
 _NAV_ITEMS = [
-    {"icon": ft.Icons.DASHBOARD_OUTLINED, "selected_icon": ft.Icons.DASHBOARD, "label": "Dashboard"},
-    {"icon": ft.Icons.PEOPLE_OUTLINE, "selected_icon": ft.Icons.PEOPLE, "label": "Users"},
-    {"icon": ft.Icons.BUSINESS_OUTLINED, "selected_icon": ft.Icons.BUSINESS, "label": "Departments"},
-    {"icon": ft.Icons.BAR_CHART_OUTLINED, "selected_icon": ft.Icons.BAR_CHART, "label": "Analytics"},
+    {"icon": ft.icons.DASHBOARD_OUTLINED, "selected_icon": ft.icons.DASHBOARD, "label": "Dashboard"},
+    {"icon": ft.icons.PEOPLE_OUTLINE, "selected_icon": ft.icons.PEOPLE, "label": "Users"},
+    {"icon": ft.icons.BUSINESS_OUTLINED, "selected_icon": ft.icons.BUSINESS, "label": "Departments"},
+    {"icon": ft.icons.BAR_CHART_OUTLINED, "selected_icon": ft.icons.BAR_CHART, "label": "Analytics"},
 ]
 
 _NAV_ROUTES = [
@@ -102,7 +102,7 @@ class AdminDashboard:
                     bgcolor=AppColors.PRIMARY,
                     actions=[
                         ft.IconButton(
-                            ft.Icons.LOGOUT,
+                            ft.icons.LOGOUT,
                             icon_color=AppColors.ON_PRIMARY,
                             tooltip="Logout",
                             on_click=self._handle_logout,

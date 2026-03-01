@@ -128,7 +128,7 @@ class AdminAnalyticsPage:
                     title=ft.Text("Analytics", color=AppColors.ON_PRIMARY),
                     bgcolor=AppColors.PRIMARY,
                     leading=ft.IconButton(
-                        ft.Icons.ARROW_BACK,
+                        ft.icons.ARROW_BACK,
                         on_click=lambda e: self.page.go("/admin/dashboard"),
                         icon_color=AppColors.ON_PRIMARY,
                     ),

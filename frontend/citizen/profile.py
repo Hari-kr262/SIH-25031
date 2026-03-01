@@ -28,13 +28,13 @@ class ProfilePage:
                     title=ft.Text("Profile", color=AppColors.ON_PRIMARY),
                     bgcolor=AppColors.PRIMARY,
                     leading=ft.IconButton(
-                        ft.Icons.ARROW_BACK,
+                        ft.icons.ARROW_BACK,
                         on_click=lambda e: self.page.go("/citizen/home"),
                         icon_color=AppColors.ON_PRIMARY,
                     ),
                     actions=[
                         ft.IconButton(
-                            ft.Icons.LOGOUT,
+                            ft.icons.LOGOUT,
                             icon_color=AppColors.ON_PRIMARY,
                             tooltip="Logout",
                             on_click=self._handle_logout,
@@ -73,11 +73,11 @@ class ProfilePage:
                             # Stats row
                             ft.Row(
                                 controls=[
-                                    self._stat_item(str(points), "Points", ft.Icons.STAR_OUTLINED),
+                                    self._stat_item(str(points), "Points", ft.icons.STAR_OUTLINED),
                                     ft.VerticalDivider(width=1, color=AppColors.DIVIDER),
-                                    self._stat_item(str(issues_count), "Reported", ft.Icons.REPORT_OUTLINED),
+                                    self._stat_item(str(issues_count), "Reported", ft.icons.REPORT_OUTLINED),
                                     ft.VerticalDivider(width=1, color=AppColors.DIVIDER),
-                                    self._stat_item(str(resolved_count), "Resolved", ft.Icons.CHECK_CIRCLE_OUTLINED),
+                                    self._stat_item(str(resolved_count), "Resolved", ft.icons.CHECK_CIRCLE_OUTLINED),
                                 ],
                                 alignment=ft.MainAxisAlignment.SPACE_EVENLY,
                             ),
@@ -104,12 +104,12 @@ class ProfilePage:
                             ),
                             ft.Divider(color=AppColors.DIVIDER),
                             # Settings items
-                            self._settings_item(ft.Icons.NOTIFICATIONS_OUTLINED, "Notification Preferences",
+                            self._settings_item(ft.icons.NOTIFICATIONS_OUTLINED, "Notification Preferences",
                                                 lambda e: None),
-                            self._settings_item(ft.Icons.LOCK_OUTLINED, "Change Password",
+                            self._settings_item(ft.icons.LOCK_OUTLINED, "Change Password",
                                                 lambda e: self.page.go("/forgot-password")),
-                            self._settings_item(ft.Icons.LANGUAGE_OUTLINED, "Language", lambda e: None),
-                            self._settings_item(ft.Icons.HELP_OUTLINE, "Help & Support", lambda e: None),
+                            self._settings_item(ft.icons.LANGUAGE_OUTLINED, "Language", lambda e: None),
+                            self._settings_item(ft.icons.HELP_OUTLINE, "Help & Support", lambda e: None),
                         ],
                         scroll=ft.ScrollMode.AUTO,
                         expand=True,
@@ -163,7 +163,7 @@ class ProfilePage:
                 controls=[
                     ft.Icon(icon, color=AppColors.PRIMARY, size=22),
                     ft.Text(label, size=14, expand=True),
-                    ft.Icon(ft.Icons.CHEVRON_RIGHT, color=AppColors.GREY, size=18),
+                    ft.Icon(ft.icons.CHEVRON_RIGHT, color=AppColors.GREY, size=18),
                 ],
                 spacing=16,
                 vertical_alignment=ft.CrossAxisAlignment.CENTER,
