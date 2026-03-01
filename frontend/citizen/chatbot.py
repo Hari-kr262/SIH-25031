@@ -41,7 +41,7 @@ class ChatbotPage:
                     title=ft.Text("AI Assistant", color=AppColors.ON_PRIMARY),
                     bgcolor=AppColors.PRIMARY,
                     leading=ft.IconButton(
-                        ft.icons.ARROW_BACK,
+                        ft.Icons.ARROW_BACK,
                         on_click=lambda e: self.page.go("/citizen/home"),
                         icon_color=AppColors.ON_PRIMARY,
                     ),
@@ -62,7 +62,7 @@ class ChatbotPage:
                                     controls=[
                                         self._input,
                                         ft.IconButton(
-                                            ft.icons.SEND,
+                                            ft.Icons.SEND,
                                             icon_color=AppColors.PRIMARY,
                                             tooltip="Send",
                                             on_click=self._handle_send,

@@ -6,14 +6,14 @@ from frontend.themes.colors import AppColors
 def _notification_item(notif: dict) -> ft.Container:
     """Build a single notification list item."""
     type_icons = {
-        "issue_update": ft.icons.UPDATE,
-        "issue_resolved": ft.icons.CHECK_CIRCLE_OUTLINED,
-        "comment": ft.icons.COMMENT_OUTLINED,
-        "vote": ft.icons.THUMB_UP_OUTLINED,
-        "badge": ft.icons.EMOJI_EVENTS_OUTLINED,
-        "system": ft.icons.INFO_OUTLINED,
+        "issue_update": ft.Icons.UPDATE,
+        "issue_resolved": ft.Icons.CHECK_CIRCLE_OUTLINED,
+        "comment": ft.Icons.COMMENT_OUTLINED,
+        "vote": ft.Icons.THUMB_UP_OUTLINED,
+        "badge": ft.Icons.EMOJI_EVENTS_OUTLINED,
+        "system": ft.Icons.INFO_OUTLINED,
     }
-    icon = type_icons.get(notif.get("type", "system"), ft.icons.NOTIFICATIONS_OUTLINED)
+    icon = type_icons.get(notif.get("type", "system"), ft.Icons.NOTIFICATIONS_OUTLINED)
     is_read = notif.get("is_read", False)
     return ft.Container(
         content=ft.Row(
@@ -51,7 +51,7 @@ def _notification_item(notif: dict) -> ft.Container:
                 ),
                 ft.Container(
                     width=8, height=8,
-                    bgcolor=AppColors.PRIMARY if not is_read else ft.colors.TRANSPARENT,
+                    bgcolor=AppColors.PRIMARY if not is_read else ft.Colors.TRANSPARENT,
                     border_radius=4,
                 ),
             ],
@@ -81,7 +81,7 @@ class NotificationsPage:
                     title=ft.Text("Notifications", color=AppColors.ON_PRIMARY),
                     bgcolor=AppColors.PRIMARY,
                     leading=ft.IconButton(
-                        ft.icons.ARROW_BACK,
+                        ft.Icons.ARROW_BACK,
                         on_click=lambda e: self.page.go("/citizen/home"),
                         icon_color=AppColors.ON_PRIMARY,
                     ),
@@ -128,7 +128,7 @@ class NotificationsPage:
                 ft.Container(
                     content=ft.Column(
                         controls=[
-                            ft.Icon(ft.icons.NOTIFICATIONS_NONE, size=64, color=AppColors.GREY),
+                            ft.Icon(ft.Icons.NOTIFICATIONS_NONE, size=64, color=AppColors.GREY),
                             ft.Text("No notifications yet", size=16, color=AppColors.GREY),
                             ft.Text(
                                 "You'll be notified when your issues are updated",

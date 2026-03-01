@@ -56,7 +56,7 @@ class CityMapPage:
                     title=ft.Text("City Map", color=AppColors.ON_PRIMARY),
                     bgcolor=AppColors.PRIMARY,
                     leading=ft.IconButton(
-                        ft.icons.ARROW_BACK,
+                        ft.Icons.ARROW_BACK,
                         on_click=lambda e: self.page.go("/citizen/home"),
                         icon_color=AppColors.ON_PRIMARY,
                     ),
@@ -152,7 +152,7 @@ class CityMapPage:
         if not issues:
             self._content.controls = [
                 EmptyState(
-                    icon=ft.icons.MAP_OUTLINED,
+                    icon=ft.Icons.MAP_OUTLINED,
                     title="No issues found",
                     subtitle="No civic issues reported in this category yet",
                 )

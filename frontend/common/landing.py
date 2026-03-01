@@ -30,13 +30,13 @@ class LandingPage:
                             ft.Text(
                                 "Crowdsourced Civic Issue Reporting\n& Resolution System",
                                 size=14,
-                                color=ft.colors.WHITE70,
+                                color=ft.Colors.WHITE70,
                                 text_align=ft.TextAlign.CENTER,
                             ),
                             ft.Text(
                                 "Smart India Hackathon 2025 | Jharkhand",
                                 size=11,
-                                color=ft.colors.WHITE54,
+                                color=ft.Colors.WHITE54,
                                 text_align=ft.TextAlign.CENTER,
                                 italic=True,
                             ),
@@ -53,7 +53,7 @@ class LandingPage:
                             ft.TextButton(
                                 "Already have an account? Login",
                                 on_click=self.on_login,
-                                style=ft.ButtonStyle(color=ft.colors.WHITE),
+                                style=ft.ButtonStyle(color=ft.Colors.WHITE),
                             ),
                             ft.Container(height=40),
                             # Stats row
@@ -85,7 +85,7 @@ class LandingPage:
 
     def _stat(self, icon: str, label: str) -> ft.Column:
         return ft.Column(
-            controls=[ft.Text(icon, size=30), ft.Text(label, size=10, color=ft.colors.WHITE70)],
+            controls=[ft.Text(icon, size=30), ft.Text(label, size=10, color=ft.Colors.WHITE70)],
             horizontal_alignment=ft.CrossAxisAlignment.CENTER,
             spacing=2,
         )
