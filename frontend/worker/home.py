@@ -27,7 +27,7 @@ class WorkerHome:
                     content=ft.Column(
                         controls=[
                             ft.Text(
-                                f"Hello, {self.page.client_storage.get('full_name') or 'Worker'}! 🔧",
+                                f"Hello, {self.page.session_data.get('full_name') or 'Worker'}! 🔧",
                                 size=18, weight=ft.FontWeight.BOLD,
                             ),
                             ft.Text(f"{len(self.assigned_issues)} issue(s) assigned to you",
@@ -52,7 +52,7 @@ class WorkerHome:
         try:
             import httpx
             from config.settings import settings
-            token = self.page.client_storage.get("access_token")
+            token = self.page.session_data.get("access_token")
             resp = httpx.get(
                 f"{settings.API_BASE_URL}/api/v1/issues/my",
                 headers={"Authorization": f"Bearer {token}"},

@@ -153,7 +153,7 @@ class AdminDashboard:
         try:
             import httpx
             from config.settings import settings
-            token = self.page.client_storage.get("access_token")
+            token = self.page.session_data.get("access_token")
             headers = {"Authorization": f"Bearer {token}"} if token else {}
             resp = httpx.get(
                 f"{settings.API_BASE_URL}/api/v1/dashboard/admin",
@@ -171,7 +171,7 @@ class AdminDashboard:
         """Clear session and redirect to landing."""
         for key in ("access_token", "refresh_token", "user_id", "user_role", "full_name"):
             try:
-                self.page.client_storage.remove(key)
+                self.page.session_data.pop(key, None)
             except Exception:
                 pass
         self.page.go("/")
