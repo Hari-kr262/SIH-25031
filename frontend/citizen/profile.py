@@ -12,7 +12,7 @@ class ProfilePage:
 
     def build(self) -> ft.View:
         self._load_profile()
-        name = self._user.get("full_name") or self.page.session.get("full_name") or "Citizen"
+        name = self._user.get("full_name") or self.page.client_storage.get("full_name") or "Citizen"
         email = self._user.get("email", "")
         points = self._user.get("points", 0)
         badges = self._user.get("badges", [])
@@ -126,7 +126,7 @@ class ProfilePage:
         try:
             import httpx
             from config.settings import settings
-            token = self.page.session.get("access_token")
+            token = self.page.client_storage.get("access_token")
             resp = httpx.get(
                 f"{settings.API_BASE_URL}/api/v1/users/me",
                 headers={"Authorization": f"Bearer {token}"},
@@ -139,11 +139,11 @@ class ProfilePage:
 
     def _handle_logout(self, e):
         """Clear session and redirect to landing."""
-        self.page.session.pop("access_token", None)
-        self.page.session.pop("refresh_token", None)
-        self.page.session.pop("user_id", None)
-        self.page.session.pop("user_role", None)
-        self.page.session.pop("full_name", None)
+        for key in ("access_token", "refresh_token", "user_id", "user_role", "full_name"):
+            try:
+                self.page.client_storage.remove(key)
+            except Exception:
+                pass
         self.page.go("/")
 
     def _stat_item(self, value: str, label: str, icon) -> ft.Column:

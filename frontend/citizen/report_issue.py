@@ -105,7 +105,7 @@ class ReportIssuePage:
         try:
             import httpx
             from config.settings import settings
-            token = self.page.session.get("access_token")
+            token = self.page.client_storage.get("access_token")
             resp = httpx.post(
                 f"{settings.API_BASE_URL}/api/v1/issues/",
                 headers={"Authorization": f"Bearer {token}"},
