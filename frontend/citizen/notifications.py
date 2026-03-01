@@ -142,7 +142,7 @@ class NotificationsPage:
                     ),
                     expand=True,
                     padding=40,
-                    alignment=ft.alignment.center,
+                    alignment=ft.Alignment(0, 0),
                 )
             ]
         else:

@@ -90,7 +90,7 @@ class AdminUsersPage:
             self._list_col.controls = [
                 ft.Container(
                     content=ft.Text("No users found.", size=14, color=AppColors.GREY),
-                    alignment=ft.alignment.center,
+                    alignment=ft.Alignment(0, 0),
                     padding=40,
                 )
             ]
@@ -129,7 +129,7 @@ class AdminUsersPage:
                             border_radius=20,
                             width=40,
                             height=40,
-                            alignment=ft.alignment.center,
+                            alignment=ft.Alignment(0, 0),
                         ),
                         ft.Column(
                             controls=[

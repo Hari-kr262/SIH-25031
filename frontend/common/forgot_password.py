@@ -47,7 +47,7 @@ class ForgotPasswordPage:
                             ft.Container(height=24),
                             ft.Container(
                                 content=ft.Icon(ft.Icons.LOCK_RESET, size=64, color=AppColors.PRIMARY),
-                                alignment=ft.alignment.center,
+                                alignment=ft.Alignment(0, 0),
                             ),
                             ft.Container(height=16),
                             ft.Text(

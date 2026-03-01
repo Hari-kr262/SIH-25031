@@ -72,8 +72,8 @@ class LandingPage:
                         spacing=12,
                     ),
                     gradient=ft.LinearGradient(
-                        begin=ft.alignment.top_center,
-                        end=ft.alignment.bottom_center,
+                        begin=ft.Alignment(0, -1),
+                        end=ft.Alignment(0, 1),
                         colors=[AppColors.PRIMARY, AppColors.PRIMARY_DARK],
                     ),
                     expand=True,

@@ -59,7 +59,7 @@ class ProfilePage:
                                             border_radius=40,
                                             width=80,
                                             height=80,
-                                            alignment=ft.alignment.center,
+                                            alignment=ft.Alignment(0, 0),
                                         ),
                                         ft.Text(name, size=20, weight=ft.FontWeight.BOLD),
                                         ft.Text(email, size=13, color=AppColors.GREY),
@@ -68,7 +68,7 @@ class ProfilePage:
                                     spacing=8,
                                 ),
                                 padding=ft.padding.symmetric(vertical=24),
-                                alignment=ft.alignment.center,
+                                alignment=ft.Alignment(0, 0),
                             ),
                             # Stats row
                             ft.Row(
