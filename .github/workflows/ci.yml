@@ -1,0 +1,64 @@
+# Main CI pipeline — runs on every push and pull_request to main
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps:
+      # 1. Checkout source code
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # 2. Set up Python 3.11
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      # 3. Cache pip dependencies keyed on requirements.txt
+      - name: Cache pip dependencies
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
+
+      # 4. Install project dependencies
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      # 5. Set environment variables required for tests
+      - name: Set environment variables
+        run: |
+          echo "DATABASE_URL=sqlite:///./test.db" >> $GITHUB_ENV
+          echo "SECRET_KEY=test-secret-key-for-ci" >> $GITHUB_ENV
+          echo "ALGORITHM=HS256" >> $GITHUB_ENV
+          echo "ACCESS_TOKEN_EXPIRE_MINUTES=30" >> $GITHUB_ENV
+          echo "REFRESH_TOKEN_EXPIRE_DAYS=7" >> $GITHUB_ENV
+
+      # 6. Lint with flake8 (non-blocking — failures allowed via || true)
+      - name: Run linting
+        run: |
+          flake8 backend/ ai/ config/ --max-line-length=120 --ignore=E501,W503 --exclude=__pycache__ || true
+
+      # 7. Run tests with pytest and generate coverage report
+      - name: Run tests
+        run: |
+          pytest tests/ -v --tb=short --cov=backend --cov-report=term-missing
+
+      # 8. Upload coverage report as a build artifact
+      - name: Upload coverage report
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-report
+          path: .coverage
