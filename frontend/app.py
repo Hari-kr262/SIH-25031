@@ -87,6 +87,21 @@ def main(page: ft.Page):
             )
             page.views.append(mp.build())
 
+        elif route == "/citizen/map":
+            from frontend.citizen.city_map import CityMapPage
+            cm = CityMapPage(page)
+            page.views.append(cm.build())
+
+        elif route == "/citizen/chatbot":
+            from frontend.citizen.chatbot import ChatbotPage
+            cp = ChatbotPage(page)
+            page.views.append(cp.build())
+
+        elif route == "/public/dashboard":
+            from frontend.common.public_dashboard import PublicDashboardPage
+            pd = PublicDashboardPage(page)
+            page.views.append(pd.build())
+
         elif route == "/citizen/leaderboard":
             from frontend.citizen.leaderboard import LeaderboardPage
             lp = LeaderboardPage(page)
