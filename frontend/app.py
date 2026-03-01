@@ -7,6 +7,7 @@ from frontend.themes.colors import AppColors
 
 def main(page: ft.Page):
     page.title = "CivicResolve"
+    page.session_data = {}  # plain dict for session storage
     page.theme_mode = ft.ThemeMode.LIGHT
     page.window.width = 390
     page.window.height = 844

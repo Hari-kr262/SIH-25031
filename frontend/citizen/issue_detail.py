@@ -104,7 +104,7 @@ class IssueDetailPage:
         try:
             import httpx
             from config.settings import settings
-            token = self.page.client_storage.get("access_token")
+            token = self.page.session_data.get("access_token")
             headers = {"Authorization": f"Bearer {token}"} if token else {}
             resp = httpx.get(
                 f"{settings.API_BASE_URL}/api/v1/issues/{self.issue_id}",
@@ -124,7 +124,7 @@ class IssueDetailPage:
         try:
             import httpx
             from config.settings import settings
-            token = self.page.client_storage.get("access_token")
+            token = self.page.session_data.get("access_token")
             resp = httpx.post(
                 f"{settings.API_BASE_URL}/api/v1/issues/{self.issue_id}/vote",
                 headers={"Authorization": f"Bearer {token}"},

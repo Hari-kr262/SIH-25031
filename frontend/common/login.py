@@ -90,11 +90,11 @@ class LoginPage:
             if resp.status_code == 200:
                 data = resp.json()
                 # Store tokens in page session
-                self.page.client_storage.set("access_token", data["access_token"])
-                self.page.client_storage.set("refresh_token", data["refresh_token"])
-                self.page.client_storage.set("user_id", str(data["user_id"]))
-                self.page.client_storage.set("user_role", data["role"])
-                self.page.client_storage.set("full_name", data["full_name"])
+                self.page.session_data["access_token"] = data["access_token"]
+                self.page.session_data["refresh_token"] = data["refresh_token"]
+                self.page.session_data["user_id"] = str(data["user_id"])
+                self.page.session_data["user_role"] = data["role"]
+                self.page.session_data["full_name"] = data["full_name"]
                 self.on_login_success(data["role"])
             else:
                 self.error_text.value = resp.json().get("detail", "Login failed")
