@@ -103,7 +103,7 @@ class CitizenHome:
                             ft.Container(
                                 content=ft.Column([
                                     ft.Text(
-                                        f"Hello, {self.page.client_storage.get('full_name') or 'Citizen'}! 👋",
+                                        f"Hello, {self.page.session.get('full_name') or 'Citizen'}! 👋",
                                         size=20, weight=ft.FontWeight.BOLD,
                                         color=AppColors.ON_PRIMARY,
                                     ),
@@ -160,7 +160,7 @@ class CitizenHome:
         try:
             import httpx
             from config.settings import settings
-            token = self.page.client_storage.get("access_token")
+            token = self.page.session.get("access_token")
             headers = {"Authorization": f"Bearer {token}"} if token else {}
             resp = httpx.get(
                 f"{settings.API_BASE_URL}/api/v1/issues/my",
@@ -196,7 +196,7 @@ class CitizenHome:
         try:
             import httpx
             from config.settings import settings
-            token = self.page.client_storage.get("access_token")
+            token = self.page.session.get("access_token")
             if not token:
                 return 0
             resp = httpx.get(
