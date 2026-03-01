@@ -7,6 +7,23 @@ from frontend.components.empty_state import EmptyState
 from frontend.components.loading_spinner import LoadingSpinner
 
 
+_NAV_ITEMS = [
+    {"icon": ft.Icons.HOME_OUTLINED, "selected_icon": ft.Icons.HOME, "label": "Home"},
+    {"icon": ft.Icons.LIST_ALT_OUTLINED, "selected_icon": ft.Icons.LIST_ALT, "label": "My Issues"},
+    {"icon": ft.Icons.ADD_CIRCLE_OUTLINE, "selected_icon": ft.Icons.ADD_CIRCLE, "label": "Report"},
+    {"icon": ft.Icons.LEADERBOARD_OUTLINED, "selected_icon": ft.Icons.LEADERBOARD, "label": "Leaders"},
+    {"icon": ft.Icons.PERSON_OUTLINE, "selected_icon": ft.Icons.PERSON, "label": "Profile"},
+]
+
+_NAV_ROUTES = [
+    "/citizen/home",
+    "/citizen/issues",
+    "/citizen/report",
+    "/citizen/leaderboard",
+    "/citizen/profile",
+]
+
+
 class CitizenHome:
     """Citizen home dashboard."""
 
@@ -20,6 +37,56 @@ class CitizenHome:
 
     def build(self) -> ft.View:
         self._load_data()
+        resolved_count = sum(1 for i in self.issues if i.get("status") == "resolved")
+        unread_count = self._get_unread_notification_count()
+
+        def _on_nav_change(e):
+            idx = e.control.selected_index
+            if idx != 0:
+                self.page.go(_NAV_ROUTES[idx])
+
+        nav_bar = ft.NavigationBar(
+            selected_index=0,
+            on_change=_on_nav_change,
+            bgcolor=AppColors.BACKGROUND,
+            indicator_color=AppColors.PRIMARY,
+            destinations=[
+                ft.NavigationBarDestination(
+                    icon=item["icon"],
+                    selected_icon=item["selected_icon"],
+                    label=item["label"],
+                )
+                for item in _NAV_ITEMS
+            ],
+        )
+
+        notif_icon = ft.Stack(
+            controls=[
+                ft.IconButton(
+                    ft.Icons.NOTIFICATIONS_OUTLINED,
+                    icon_color=AppColors.ON_PRIMARY,
+                    on_click=lambda e: self.page.go("/citizen/notifications"),
+                    tooltip="Notifications",
+                ),
+                *(
+                    [ft.Container(
+                        content=ft.Text(
+                            str(unread_count) if unread_count < 10 else "9+",
+                            size=9,
+                            color=AppColors.ON_PRIMARY,
+                            weight=ft.FontWeight.BOLD,
+                        ),
+                        bgcolor=AppColors.ERROR,
+                        border_radius=8,
+                        padding=ft.padding.symmetric(horizontal=4, vertical=1),
+                        right=4,
+                        top=4,
+                    )]
+                    if unread_count > 0 else []
+                ),
+            ],
+        )
+
         return ft.View(
             route="/citizen/home",
             controls=[
@@ -27,10 +94,7 @@ class CitizenHome:
                     title=ft.Text("CivicResolve", color=AppColors.ON_PRIMARY,
                                  weight=ft.FontWeight.BOLD),
                     bgcolor=AppColors.PRIMARY,
-                    actions=[
-                        ft.IconButton("notifications", icon_color=AppColors.ON_PRIMARY,
-                                     on_click=lambda e: self.page.go("/citizen/notifications")),
-                    ],
+                    actions=[notif_icon],
                 ),
                 ft.Container(
                     content=ft.Column(
@@ -57,7 +121,7 @@ class CitizenHome:
                             ft.Row(
                                 controls=[
                                     StatCard("My Reports", str(len(self.issues)), "report", AppColors.PRIMARY),
-                                    StatCard("Resolved", "0", "check_circle", AppColors.SUCCESS),
+                                    StatCard("Resolved", str(resolved_count), "check_circle", AppColors.SUCCESS),
                                 ],
                                 scroll=ft.ScrollMode.AUTO,
                             ),
@@ -88,6 +152,7 @@ class CitizenHome:
                     expand=True,
                 ),
             ],
+            bottom_appbar=ft.BottomAppBar(content=nav_bar, padding=ft.padding.all(0)),
         )
 
     def _load_data(self):
@@ -125,3 +190,22 @@ class CitizenHome:
                 EmptyState(icon="wifi_off", title="Could not load issues",
                            subtitle="Check your connection and try again")
             ]
+
+    def _get_unread_notification_count(self) -> int:
+        """Fetch unread notification count from API."""
+        try:
+            import httpx
+            from config.settings import settings
+            token = self.page.client_storage.get("access_token")
+            if not token:
+                return 0
+            resp = httpx.get(
+                f"{settings.API_BASE_URL}/api/v1/notifications/unread-count",
+                headers={"Authorization": f"Bearer {token}"},
+                timeout=5,
+            )
+            if resp.status_code == 200:
+                return resp.json().get("count", 0)
+        except Exception:
+            pass
+        return 0
