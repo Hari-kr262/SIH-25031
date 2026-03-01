@@ -58,7 +58,7 @@ class AdminUsersPage:
         try:
             import httpx
             from config.settings import settings
-            token = self.page.client_storage.get("access_token")
+            token = self.page.session_data.get("access_token")
             resp = httpx.get(
                 f"{settings.API_BASE_URL}/api/v1/admin/users",
                 headers={"Authorization": f"Bearer {token}"},
@@ -162,7 +162,7 @@ class AdminUsersPage:
         try:
             import httpx
             from config.settings import settings
-            token = self.page.client_storage.get("access_token")
+            token = self.page.session_data.get("access_token")
             httpx.put(
                 f"{settings.API_BASE_URL}/api/v1/admin/users/{user_id}/toggle-active",
                 headers={"Authorization": f"Bearer {token}"},
