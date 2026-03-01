@@ -4,7 +4,6 @@ Main entry point with routing and role-based navigation.
 """
 
 import flet as ft
-from config.settings import settings
 from frontend.themes.colors import AppColors
 from frontend.themes.light_theme import get_light_theme
 from frontend.themes.dark_theme import get_dark_theme
@@ -21,10 +20,10 @@ def main(page: ft.Page):
     page.window.height = 844
     page.fonts = {}
 
-    def route_change(route_event: ft.RouteChangeEvent):
+    def route_change(e):
         """Handle route changes and render the appropriate view."""
         page.views.clear()
-        route = route_event.route
+        route = page.route
 
         # ----------------------------------------------------------------
         # Public routes
@@ -174,7 +173,7 @@ def main(page: ft.Page):
         else:
             page.go("/citizen/home")
 
-    def view_pop(view: ft.View):
+    def view_pop(e):
         """Handle back navigation."""
         page.views.pop()
         top_view = page.views[-1]
@@ -211,7 +210,6 @@ def _not_found_view(page: ft.Page) -> ft.View:
 if __name__ == "__main__":
     ft.app(
         target=main,
-        view=ft.AppView.FLET_APP,
-        host=settings.FLET_SERVER_HOST,
-        port=settings.FLET_SERVER_PORT,
+        view=ft.AppView.WEB_BROWSER,
+        port=8080,
     )
