@@ -8,11 +8,11 @@ from frontend.components.loading_spinner import LoadingSpinner
 
 
 _NAV_ITEMS = [
-    {"icon": ft.icons.HOME_OUTLINED, "selected_icon": ft.icons.HOME, "label": "Home"},
-    {"icon": ft.icons.LIST_ALT_OUTLINED, "selected_icon": ft.icons.LIST_ALT, "label": "My Issues"},
-    {"icon": ft.icons.ADD_CIRCLE_OUTLINE, "selected_icon": ft.icons.ADD_CIRCLE, "label": "Report"},
-    {"icon": ft.icons.LEADERBOARD_OUTLINED, "selected_icon": ft.icons.LEADERBOARD, "label": "Leaders"},
-    {"icon": ft.icons.PERSON_OUTLINE, "selected_icon": ft.icons.PERSON, "label": "Profile"},
+    {"icon": ft.Icons.HOME_OUTLINED, "selected_icon": ft.Icons.HOME, "label": "Home"},
+    {"icon": ft.Icons.LIST_ALT_OUTLINED, "selected_icon": ft.Icons.LIST_ALT, "label": "My Issues"},
+    {"icon": ft.Icons.ADD_CIRCLE_OUTLINE, "selected_icon": ft.Icons.ADD_CIRCLE, "label": "Report"},
+    {"icon": ft.Icons.LEADERBOARD_OUTLINED, "selected_icon": ft.Icons.LEADERBOARD, "label": "Leaders"},
+    {"icon": ft.Icons.PERSON_OUTLINE, "selected_icon": ft.Icons.PERSON, "label": "Profile"},
 ]
 
 _NAV_ROUTES = [
@@ -63,7 +63,7 @@ class CitizenHome:
         notif_icon = ft.Stack(
             controls=[
                 ft.IconButton(
-                    ft.icons.NOTIFICATIONS_OUTLINED,
+                    ft.Icons.NOTIFICATIONS_OUTLINED,
                     icon_color=AppColors.ON_PRIMARY,
                     on_click=lambda e: self.page.go("/citizen/notifications"),
                     tooltip="Notifications",
@@ -108,7 +108,7 @@ class CitizenHome:
                                         color=AppColors.ON_PRIMARY,
                                     ),
                                     ft.Text("Report civic issues in your area",
-                                           color=ft.colors.WHITE70, size=13),
+                                           color=ft.Colors.WHITE70, size=13),
                                 ], spacing=4),
                                 bgcolor=AppColors.PRIMARY,
                                 padding=20,

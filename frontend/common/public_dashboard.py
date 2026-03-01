@@ -154,7 +154,7 @@ class PublicDashboardPage:
         if not self._issues:
             self._issue_list.controls = [
                 EmptyState(
-                    icon=ft.icons.INBOX_OUTLINED,
+                    icon=ft.Icons.INBOX_OUTLINED,
                     title="No issues yet",
                     subtitle="Be the first to report a civic issue!",
                 )
