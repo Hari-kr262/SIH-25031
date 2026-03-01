@@ -128,7 +128,7 @@ class ChatbotPage:
     def _fetch_bot_response(self, user_text: str):
         """Call chatbot API and add bot reply."""
         try:
-            token = self.page.session.get("access_token")
+            token = self.page.client_storage.get("access_token")
             resp = api_client.post(
                 "/chatbot/message",
                 data={"message": user_text},

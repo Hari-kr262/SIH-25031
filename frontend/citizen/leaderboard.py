@@ -128,7 +128,7 @@ class LeaderboardPage:
         try:
             import httpx
             from config.settings import settings
-            token = self.page.session.get("access_token")
+            token = self.page.client_storage.get("access_token")
             headers = {"Authorization": f"Bearer {token}"} if token else {}
             resp = httpx.get(
                 f"{settings.API_BASE_URL}/api/v1/gamification/leaderboard",
