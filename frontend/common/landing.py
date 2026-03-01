@@ -1,10 +1,10 @@
-"""Landing page — public-facing welcome screen."'''
+"""Landing page - public-facing welcome screen."""
 import flet as ft
 from frontend.themes.colors import AppColors
 
 
 class LandingPage:
-    """CivicResolve public landing page."'''
+    """CivicResolve public landing page."""
 
     def __init__(self, page: ft.Page, on_login, on_register):
         self.page = page
@@ -19,7 +19,7 @@ class LandingPage:
                     content=ft.Column(
                         controls=[
                             ft.Container(height=60),
-                            ft.Text("🏛️", size=80, text_align=ft.TextAlign.CENTER),
+                            ft.Text("???", size=80, text_align=ft.TextAlign.CENTER),
                             ft.Text(
                                 "CivicResolve",
                                 size=36,
@@ -42,7 +42,7 @@ class LandingPage:
                             ),
                             ft.Container(height=40),
                             ft.ElevatedButton(
-                                "Get Started — Report Issues",
+                                "Get Started - Report Issues",
                                 on_click=self.on_register,
                                 bgcolor=AppColors.ON_PRIMARY,
                                 color=AppColors.PRIMARY,
@@ -56,13 +56,12 @@ class LandingPage:
                                 style=ft.ButtonStyle(color=ft.Colors.WHITE),
                             ),
                             ft.Container(height=40),
-                            # Stats row
                             ft.Row(
                                 controls=[
-                                    self._stat("🕳️", "Potholes"),
-                                    self._stat("🗑️", "Garbage"),
-                                    self._stat("💡", "Streetlights"),
-                                    self._stat("💧", "Leaks"),
+                                    self._stat("???", "Potholes"),
+                                    self._stat("???", "Garbage"),
+                                    self._stat("??", "Streetlights"),
+                                    self._stat("??", "Leaks"),
                                 ],
                                 alignment=ft.MainAxisAlignment.CENTER,
                                 spacing=16,

@@ -1,30 +1,21 @@
-"""
+﻿"""
 CivicResolve Flet Application
-Main entry point with routing and role-based navigation.
 """
-
 import flet as ft
 from frontend.themes.colors import AppColors
-from frontend.themes.light_theme import get_light_theme
-from frontend.themes.dark_theme import get_dark_theme
 
 
 def main(page: ft.Page):
-    """Main Flet application with routing."""
-    # Page configuration
     page.title = "CivicResolve"
     page.theme_mode = ft.ThemeMode.LIGHT
-    page.theme = get_light_theme()
-    page.dark_theme = get_dark_theme()
     page.window.width = 390
     page.window.height = 844
 
     def route_change(e):
-        """Handle route changes and render the appropriate view."""
         page.views.clear()
         route = page.route
 
-        if route == "/":
+        if route == "/" or route == "" or route is None:
             from frontend.common.landing import LandingPage
             lp = LandingPage(
                 page,
@@ -115,11 +106,6 @@ def main(page: ft.Page):
             fp = ForgotPasswordPage(page)
             page.views.append(fp.build())
 
-        elif route == "/admin/home":
-            from frontend.admin.home import AdminHome
-            ah = AdminHome(page)
-            page.views.append(ah.build())
-
         elif route == "/admin/dashboard":
             from frontend.admin.dashboard import AdminDashboard
             ad = AdminDashboard(page)
@@ -146,49 +132,42 @@ def main(page: ft.Page):
             page.views.append(wh.build())
 
         else:
-            page.views.append(_not_found_view(page))
+            page.views.append(ft.View(
+                route="/404",
+                controls=[
+                    ft.AppBar(title=ft.Text("Not Found"), bgcolor=AppColors.PRIMARY),
+                    ft.Container(
+                        content=ft.Column(
+                            controls=[
+                                ft.Text("Page Not Found", size=24, weight=ft.FontWeight.BOLD),
+                                ft.ElevatedButton("Go Home", on_click=lambda e: page.go("/")),
+                            ],
+                            horizontal_alignment=ft.CrossAxisAlignment.CENTER,
+                            alignment=ft.MainAxisAlignment.CENTER,
+                        ),
+                        expand=True,
+                    ),
+                ],
+            ))
 
         page.update()
 
     def _navigate_by_role(role: str):
-        """Navigate to the role-specific home screen after login."""
         if role in ("municipal_admin", "super_admin", "department_head"):
             page.go("/admin/dashboard")
         else:
             page.go("/citizen/home")
 
     def view_pop(e):
-        """Handle back navigation."""
         page.views.pop()
         top_view = page.views[-1]
         page.go(top_view.route)
 
     page.on_route_change = route_change
     page.on_view_pop = view_pop
-    page.go("/")
 
-
-def _not_found_view(page: ft.Page) -> ft.View:
-    """404 not found view."""
-    return ft.View(
-        route="/404",
-        controls=[
-            ft.AppBar(title=ft.Text("Not Found"), bgcolor=AppColors.PRIMARY),
-            ft.Container(
-                content=ft.Column(
-                    controls=[
-                        ft.Text("🔍", size=60),
-                        ft.Text("Page Not Found", size=24, weight=ft.FontWeight.BOLD),
-                        ft.ElevatedButton("Go Home", on_click=lambda e: page.go("/")),
-                    ],
-                    horizontal_alignment=ft.CrossAxisAlignment.CENTER,
-                    alignment=ft.MainAxisAlignment.CENTER,
-                    spacing=16,
-                ),
-                expand=True,
-            ),
-        ],
-    )
+    # Manually trigger first render
+    route_change(None)
 
 
 if __name__ == "__main__":
