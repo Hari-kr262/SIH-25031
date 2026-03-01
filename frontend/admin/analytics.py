@@ -156,7 +156,7 @@ class AdminAnalyticsPage:
         try:
             import httpx
             from config.settings import settings
-            token = self.page.client_storage.get("access_token")
+            token = self.page.session.get("access_token")
             headers = {"Authorization": f"Bearer {token}"} if token else {}
             base = settings.API_BASE_URL
 

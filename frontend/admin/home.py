@@ -65,7 +65,7 @@ class AdminHome:
         try:
             import httpx
             from config.settings import settings
-            token = self.page.client_storage.get("access_token")
+            token = self.page.session.get("access_token")
             resp = httpx.get(
                 f"{settings.API_BASE_URL}/api/v1/dashboard/admin",
                 headers={"Authorization": f"Bearer {token}"},

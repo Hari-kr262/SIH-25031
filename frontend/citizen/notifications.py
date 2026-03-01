@@ -109,7 +109,7 @@ class NotificationsPage:
         try:
             import httpx
             from config.settings import settings
-            token = self.page.client_storage.get("access_token")
+            token = self.page.session.get("access_token")
             resp = httpx.get(
                 f"{settings.API_BASE_URL}/api/v1/notifications/",
                 headers={"Authorization": f"Bearer {token}"},
@@ -155,7 +155,7 @@ class NotificationsPage:
         try:
             import httpx
             from config.settings import settings
-            token = self.page.client_storage.get("access_token")
+            token = self.page.session.get("access_token")
             httpx.post(
                 f"{settings.API_BASE_URL}/api/v1/notifications/mark-all-read",
                 headers={"Authorization": f"Bearer {token}"},

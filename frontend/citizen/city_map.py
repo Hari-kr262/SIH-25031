@@ -122,7 +122,7 @@ class CityMapPage:
     def _load_issues(self):
         """Fetch issues from API and populate the list."""
         try:
-            token = self.page.client_storage.get("access_token")
+            token = self.page.session.get("access_token")
             data = api_client.get("/issues?page=1&page_size=20", token=token)
             if isinstance(data, list):
                 self._all_issues = data
