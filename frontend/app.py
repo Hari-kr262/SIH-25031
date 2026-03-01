@@ -18,16 +18,12 @@ def main(page: ft.Page):
     page.dark_theme = get_dark_theme()
     page.window.width = 390
     page.window.height = 844
-    page.fonts = {}
 
     def route_change(e):
         """Handle route changes and render the appropriate view."""
         page.views.clear()
         route = page.route
 
-        # ----------------------------------------------------------------
-        # Public routes
-        # ----------------------------------------------------------------
         if route == "/":
             from frontend.common.landing import LandingPage
             lp = LandingPage(
@@ -56,9 +52,6 @@ def main(page: ft.Page):
             )
             page.views.append(rp.build())
 
-        # ----------------------------------------------------------------
-        # Citizen routes
-        # ----------------------------------------------------------------
         elif route == "/citizen/home":
             from frontend.citizen.home import CitizenHome
             ch = CitizenHome(
@@ -122,9 +115,6 @@ def main(page: ft.Page):
             fp = ForgotPasswordPage(page)
             page.views.append(fp.build())
 
-        # ----------------------------------------------------------------
-        # Admin routes
-        # ----------------------------------------------------------------
         elif route == "/admin/home":
             from frontend.admin.home import AdminHome
             ah = AdminHome(page)
@@ -150,17 +140,11 @@ def main(page: ft.Page):
             ap = AdminAnalyticsPage(page)
             page.views.append(ap.build())
 
-        # ----------------------------------------------------------------
-        # Worker routes
-        # ----------------------------------------------------------------
         elif route == "/worker/home":
             from frontend.worker.home import WorkerHome
             wh = WorkerHome(page, on_view_issue=lambda issue: None)
             page.views.append(wh.build())
 
-        # ----------------------------------------------------------------
-        # Fallback — redirect to landing
-        # ----------------------------------------------------------------
         else:
             page.views.append(_not_found_view(page))
 
@@ -181,7 +165,7 @@ def main(page: ft.Page):
 
     page.on_route_change = route_change
     page.on_view_pop = view_pop
-    page.go(page.route or "/")
+    page.go("/")
 
 
 def _not_found_view(page: ft.Page) -> ft.View:
