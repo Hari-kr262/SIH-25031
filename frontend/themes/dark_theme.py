@@ -8,5 +8,4 @@ def get_dark_theme() -> ft.Theme:
     return ft.Theme(
         color_scheme_seed=AppColors.PRIMARY,
         visual_density=ft.VisualDensity.COMFORTABLE,
-        brightness=ft.Brightness.DARK,
     )
