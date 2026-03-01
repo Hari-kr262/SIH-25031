@@ -20,7 +20,7 @@ def _leaderboard_item(rank: int, entry: dict) -> ft.Container:
                         color=medal or AppColors.GREY,
                     ),
                     width=44,
-                    alignment=ft.alignment.center,
+                    alignment=ft.Alignment(0, 0),
                 ),
                 ft.Container(
                     content=ft.Text(
@@ -33,7 +33,7 @@ def _leaderboard_item(rank: int, entry: dict) -> ft.Container:
                     border_radius=20,
                     width=40,
                     height=40,
-                    alignment=ft.alignment.center,
+                    alignment=ft.Alignment(0, 0),
                 ),
                 ft.Column(
                     controls=[
@@ -108,7 +108,7 @@ class LeaderboardPage:
                                     text_align=ft.TextAlign.CENTER,
                                 ),
                                 padding=ft.padding.symmetric(vertical=12),
-                                alignment=ft.alignment.center,
+                                alignment=ft.Alignment(0, 0),
                             ),
                             ft.Container(
                                 content=self._list_col,
@@ -162,7 +162,7 @@ class LeaderboardPage:
                         spacing=12,
                     ),
                     padding=40,
-                    alignment=ft.alignment.center,
+                    alignment=ft.Alignment(0, 0),
                     expand=True,
                 )
             ]
