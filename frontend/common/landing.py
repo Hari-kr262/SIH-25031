@@ -1,10 +1,10 @@
-"""Landing page — public-facing welcome screen."""
+"""Landing page — public-facing welcome screen."'''
 import flet as ft
 from frontend.themes.colors import AppColors
 
 
 class LandingPage:
-    """CivicResolve public landing page."""
+    """CivicResolve public landing page."'''
 
     def __init__(self, page: ft.Page, on_login, on_register):
         self.page = page
