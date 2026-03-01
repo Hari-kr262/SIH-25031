@@ -1,0 +1,46 @@
+# Deploy readiness check — verifies the app can be imported and created on every push to main
+name: Deploy Check
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  deploy-check:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps:
+      # 1. Checkout source code
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # 2. Set up Python 3.11
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      # 3. Cache pip dependencies
+      - name: Cache pip dependencies
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
+
+      # 4. Install project dependencies
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      # 5. Verify the app starts correctly
+      - name: Check app starts
+        run: |
+          DATABASE_URL=sqlite:///./deploy_check.db \
+          SECRET_KEY=test-secret-key-for-ci \
+          ALGORITHM=HS256 \
+          ACCESS_TOKEN_EXPIRE_MINUTES=30 \
+          REFRESH_TOKEN_EXPIRE_DAYS=7 \
+          python -c "from backend.app import create_app; app = create_app(); print('✅ App created successfully')"

@@ -1,0 +1,64 @@
+# PR quality check — posts a test-result comment on every pull request to main
+name: PR Check
+
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  pr-test:
+    runs-on: ubuntu-latest
+    # Allow the job to write PR comments
+    permissions:
+      pull-requests: write
+
+    steps:
+      # 1. Checkout source code
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # 2. Set up Python 3.11
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      # 3. Install project dependencies
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      # 4. Set environment variables required for tests
+      - name: Set environment variables
+        run: |
+          echo "DATABASE_URL=sqlite:///./test.db" >> $GITHUB_ENV
+          echo "SECRET_KEY=test-secret-key-for-ci" >> $GITHUB_ENV
+          echo "ALGORITHM=HS256" >> $GITHUB_ENV
+          echo "ACCESS_TOKEN_EXPIRE_MINUTES=30" >> $GITHUB_ENV
+          echo "REFRESH_TOKEN_EXPIRE_DAYS=7" >> $GITHUB_ENV
+
+      # 5. Run tests and capture output for the PR comment
+      - name: Run tests
+        id: run_tests
+        run: |
+          # Capture output; allow non-zero exit so the comment step still runs
+          pytest tests/ -v --tb=short --cov=backend --cov-report=term-missing 2>&1 | tee /tmp/pytest_output.txt || true
+          echo "exit_code=${PIPESTATUS[0]}" >> $GITHUB_OUTPUT
+
+      # 6. Post a comment on the PR with the test results
+      - name: Post PR comment
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const output = fs.readFileSync('/tmp/pytest_output.txt', 'utf8');
+            const exitCode = '${{ steps.run_tests.outputs.exit_code }}';
+            const status = exitCode === '0' ? '✅ All tests passed' : '❌ Some tests failed';
+
+            const body = `## ${status}\n\n<details><summary>Test output</summary>\n\n\`\`\`\n${output}\n\`\`\`\n</details>`;
+
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body,
+            });
