@@ -74,6 +74,40 @@ def main(page: ft.Page):
             rp = ReportIssuePage(page, on_submit_success=lambda: page.go("/citizen/home"))
             page.views.append(rp.build())
 
+        elif route == "/citizen/notifications":
+            from frontend.citizen.notifications import NotificationsPage
+            np = NotificationsPage(page)
+            page.views.append(np.build())
+
+        elif route == "/citizen/issues":
+            from frontend.citizen.my_issues import MyIssuesPage
+            mp = MyIssuesPage(
+                page,
+                on_view_issue=lambda issue: page.go(f"/citizen/issue/{issue.get('id')}"),
+            )
+            page.views.append(mp.build())
+
+        elif route == "/citizen/leaderboard":
+            from frontend.citizen.leaderboard import LeaderboardPage
+            lp = LeaderboardPage(page)
+            page.views.append(lp.build())
+
+        elif route == "/citizen/profile":
+            from frontend.citizen.profile import ProfilePage
+            pp = ProfilePage(page)
+            page.views.append(pp.build())
+
+        elif route.startswith("/citizen/issue/"):
+            from frontend.citizen.issue_detail import IssueDetailPage
+            issue_id = route.split("/citizen/issue/")[-1]
+            dp = IssueDetailPage(page, issue_id=issue_id)
+            page.views.append(dp.build())
+
+        elif route == "/forgot-password":
+            from frontend.common.forgot_password import ForgotPasswordPage
+            fp = ForgotPasswordPage(page)
+            page.views.append(fp.build())
+
         # ----------------------------------------------------------------
         # Admin routes
         # ----------------------------------------------------------------
