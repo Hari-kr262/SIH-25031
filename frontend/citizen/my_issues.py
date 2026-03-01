@@ -44,13 +44,13 @@ class MyIssuesPage:
                     title=ft.Text("My Issues", color=AppColors.ON_PRIMARY),
                     bgcolor=AppColors.PRIMARY,
                     leading=ft.IconButton(
-                        ft.Icons.ARROW_BACK,
+                        ft.icons.ARROW_BACK,
                         on_click=lambda e: self.page.go("/citizen/home"),
                         icon_color=AppColors.ON_PRIMARY,
                     ),
                     actions=[
                         ft.IconButton(
-                            ft.Icons.ADD_CIRCLE_OUTLINE,
+                            ft.icons.ADD_CIRCLE_OUTLINE,
                             icon_color=AppColors.ON_PRIMARY,
                             tooltip="Report new issue",
                             on_click=lambda e: self.page.go("/citizen/report"),
@@ -121,7 +121,7 @@ class MyIssuesPage:
         if not issues:
             self._content.controls = [
                 EmptyState(
-                    icon=ft.Icons.INBOX_OUTLINED,
+                    icon=ft.icons.INBOX_OUTLINED,
                     title="No issues found",
                     subtitle="Tap + to report a new civic issue",
                     action_text="Report Issue",

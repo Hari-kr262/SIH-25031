@@ -13,7 +13,7 @@ class ForgotPasswordPage:
             hint_text="Enter your registered email",
             keyboard_type=ft.KeyboardType.EMAIL,
             border_radius=12,
-            prefix_icon=ft.Icons.EMAIL_OUTLINED,
+            prefix_icon=ft.icons.EMAIL_OUTLINED,
         )
         self.status_text = ft.Text("", color=AppColors.SUCCESS, size=13)
         self.error_text = ft.Text("", color=AppColors.ERROR, size=13)
@@ -36,7 +36,7 @@ class ForgotPasswordPage:
                     title=ft.Text("Forgot Password", color=AppColors.ON_PRIMARY),
                     bgcolor=AppColors.PRIMARY,
                     leading=ft.IconButton(
-                        ft.Icons.ARROW_BACK,
+                        ft.icons.ARROW_BACK,
                         on_click=lambda e: self.page.go("/login"),
                         icon_color=AppColors.ON_PRIMARY,
                     ),
@@ -46,7 +46,7 @@ class ForgotPasswordPage:
                         controls=[
                             ft.Container(height=24),
                             ft.Container(
-                                content=ft.Icon(ft.Icons.LOCK_RESET, size=64, color=AppColors.PRIMARY),
+                                content=ft.Icon(ft.icons.LOCK_RESET, size=64, color=AppColors.PRIMARY),
                                 alignment=ft.alignment.center,
                             ),
                             ft.Container(height=16),

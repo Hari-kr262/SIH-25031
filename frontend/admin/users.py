@@ -15,7 +15,7 @@ class AdminUsersPage:
     def build(self) -> ft.View:
         self._search_field = ft.TextField(
             hint_text="Search by name or email…",
-            prefix_icon=ft.Icons.SEARCH,
+            prefix_icon=ft.icons.SEARCH,
             border_radius=12,
             on_change=self._on_search,
             expand=True,
@@ -28,7 +28,7 @@ class AdminUsersPage:
                     title=ft.Text("Manage Users", color=AppColors.ON_PRIMARY),
                     bgcolor=AppColors.PRIMARY,
                     leading=ft.IconButton(
-                        ft.Icons.ARROW_BACK,
+                        ft.icons.ARROW_BACK,
                         on_click=lambda e: self.page.go("/admin/dashboard"),
                         icon_color=AppColors.ON_PRIMARY,
                     ),

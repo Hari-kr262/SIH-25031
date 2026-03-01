@@ -92,7 +92,7 @@ class LeaderboardPage:
                     title=ft.Text("Leaderboard", color=AppColors.ON_PRIMARY),
                     bgcolor=AppColors.PRIMARY,
                     leading=ft.IconButton(
-                        ft.Icons.ARROW_BACK,
+                        ft.icons.ARROW_BACK,
                         on_click=lambda e: self.page.go("/citizen/home"),
                         icon_color=AppColors.ON_PRIMARY,
                     ),
@@ -149,7 +149,7 @@ class LeaderboardPage:
                 ft.Container(
                     content=ft.Column(
                         controls=[
-                            ft.Icon(ft.Icons.EMOJI_EVENTS_OUTLINED, size=64, color=AppColors.GREY),
+                            ft.Icon(ft.icons.EMOJI_EVENTS_OUTLINED, size=64, color=AppColors.GREY),
                             ft.Text("No data available yet", size=16, color=AppColors.GREY),
                             ft.Text(
                                 "Report issues to earn points and appear here!",
