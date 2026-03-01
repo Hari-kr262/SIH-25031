@@ -116,6 +116,26 @@ def main(page: ft.Page):
             ah = AdminHome(page)
             page.views.append(ah.build())
 
+        elif route == "/admin/dashboard":
+            from frontend.admin.dashboard import AdminDashboard
+            ad = AdminDashboard(page)
+            page.views.append(ad.build())
+
+        elif route == "/admin/users":
+            from frontend.admin.users import AdminUsersPage
+            ap = AdminUsersPage(page)
+            page.views.append(ap.build())
+
+        elif route == "/admin/departments":
+            from frontend.admin.departments import AdminDepartmentsPage
+            dp = AdminDepartmentsPage(page)
+            page.views.append(dp.build())
+
+        elif route == "/admin/analytics":
+            from frontend.admin.analytics import AdminAnalyticsPage
+            ap = AdminAnalyticsPage(page)
+            page.views.append(ap.build())
+
         # ----------------------------------------------------------------
         # Worker routes
         # ----------------------------------------------------------------
@@ -134,15 +154,10 @@ def main(page: ft.Page):
 
     def _navigate_by_role(role: str):
         """Navigate to the role-specific home screen after login."""
-        role_routes = {
-            "citizen": "/citizen/home",
-            "volunteer": "/citizen/home",
-            "field_worker": "/worker/home",
-            "department_head": "/admin/home",
-            "municipal_admin": "/admin/home",
-            "super_admin": "/admin/home",
-        }
-        page.go(role_routes.get(role, "/citizen/home"))
+        if role in ("municipal_admin", "super_admin", "department_head"):
+            page.go("/admin/dashboard")
+        else:
+            page.go("/citizen/home")
 
     def view_pop(view: ft.View):
         """Handle back navigation."""
